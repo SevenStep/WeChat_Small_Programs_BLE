@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+    
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#096049",
+    "navigationBarTitleText": "BLE自供电传感器",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
+}

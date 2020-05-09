@@ -1,0 +1,9 @@
+/**app.wxss**/
+
+page{
+ color: #6b6b6b;
+ font-size: 28rpx;
+ background: rgba(255, 255, 255, 0);
+
+
+}
