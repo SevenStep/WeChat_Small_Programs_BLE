@@ -40,7 +40,7 @@ module.exports.len = function(arr) {
  
  
   
-  <view style="font-size:40px;margin-top:10px">
+  <view style="font-size:30px;margin-top:10px">
     <view>温度值：{{numT}}℃</view>
     <view>湿度值：{{numH}}%</view>
   </view>
