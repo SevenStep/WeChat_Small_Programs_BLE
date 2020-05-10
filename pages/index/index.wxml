@@ -7,10 +7,9 @@ module.exports.len = function(arr) {
   return arr.length
 }
 </wxs>
-
-<button class="button1" bindtap="openBluetoothAdapter">开始扫描</button> 
-<button bindtap="stopBluetoothDevicesDiscovery">停止扫描</button>
-<button bindtap="closeBluetoothAdapter">结束流程</button>
+<button class="button1" type="primary" bindtap="openBluetoothAdapter">开始扫描</button> 
+<button class="button1" type="primary" bindtap="stopBluetoothDevicesDiscovery">停止扫描</button>
+<button class="button1" type="primary" bindtap="closeBluetoothAdapter">结束流程</button>
 
 
 <view class="devices_summary">已发现{{devices.length}}个外围设备</view> 
