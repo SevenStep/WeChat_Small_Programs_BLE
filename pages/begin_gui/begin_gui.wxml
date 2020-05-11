@@ -12,7 +12,10 @@ module.exports.len = function(arr) {
 <button class="button1" type="primary" bindtap="stopBluetoothDevicesDiscovery">停止扫描</button>
 <button class="button1" type="primary" bindtap="closeBluetoothAdapter">结束流程</button>
 -->
-<button class = "button_roundel" type="">开始扫描</button>
+<button class = "button1" >
+  <text class = "button_roundel" type="openBluetoothAdapter">开始扫描</text> 
+</button>
+
 
 <view class="devices_summary">已发现{{devices.length}}个外围设备</view> 
 <scroll-view  class="device_list" scroll-y scroll-with-animation>

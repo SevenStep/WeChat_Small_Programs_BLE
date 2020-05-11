@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/begin_gui/begin_gui"
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "dark",

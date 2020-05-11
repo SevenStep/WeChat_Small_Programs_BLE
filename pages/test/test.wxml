@@ -1,0 +1,4 @@
+<!--pages/test/test.wxml-->
+<button class= "button1" type="openBluetoothAdapter">
+  <text class= "button_roundel">开始扫描</text>
+</button>

@@ -1,0 +1,20 @@
+/* pages/test/test.wxss */
+.button1{
+  height: 50px;
+  width: 75%;
+  margin-top: 500px;
+  background-color: burlywood;
+  color: white;
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.button_roundel{
+}
+.button1::after {
+  border-radius: 100rpx;
+  border: 0;
+}
+/*用border::after来删除button的默认边宽*/
