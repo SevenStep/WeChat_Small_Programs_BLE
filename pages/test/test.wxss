@@ -2,7 +2,7 @@
 .button1{
   height: 50px;
   width: 75%;
-  margin-top: 500px;
+  margin-top: 480px;
   background-color: burlywood;
   color: white;
   border-radius: 100rpx;
@@ -16,3 +16,11 @@
   border: 0;
 }
 /*用border::after来删除button的默认边宽*/
+.text_name{
+  margin-top: 12px;
+  font-size: smaller;
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}

@@ -2,3 +2,11 @@
 <button class= "button1" type="openBluetoothAdapter">
   <text>开始扫描</text>
 </button>
+
+<view class="text_name">
+  <text>NUAA @WangYue</text>
+</view>
+
+
+
+
