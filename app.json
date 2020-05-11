@@ -1,13 +1,11 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/data_display",
     "pages/begin_gui/begin_gui"
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#096049",
-    "navigationBarTitleText": "BLE自供电传感器",
+    "navigationBarBackgroundColor": "#4682b4",
+    "navigationBarTitleText": "BLE 温湿度检测",
     "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json"
