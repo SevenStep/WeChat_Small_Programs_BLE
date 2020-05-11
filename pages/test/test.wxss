@@ -11,8 +11,6 @@
   align-items: center;
   justify-content: center;
 }
-.button_roundel{
-}
 .button1::after {
   border-radius: 100rpx;
   border: 0;
