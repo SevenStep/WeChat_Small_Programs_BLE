@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index"
-    
+    "pages/index/index",
+    "pages/data_display",
+    "pages/begin_gui/begin_gui"
   ],
   "window": {
     "backgroundTextStyle": "dark",
