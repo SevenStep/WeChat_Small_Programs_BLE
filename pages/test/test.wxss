@@ -90,7 +90,7 @@
   left:5%;
   width: 90%;
   height: 50%;
-  background-color: black;
+  background-color: ghostwhite;
 }
 
 .btn-satrt{
