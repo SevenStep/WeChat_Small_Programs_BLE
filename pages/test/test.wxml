@@ -1,11 +1,46 @@
 <!--pages/test/test.wxml-->
-<button class= "button1" type="openBluetoothAdapter">
-  <text>开始扫描</text>
-</button>
+<view class="container">
+  <view class="page-body">
+    <view class="devices-status">
+      <text>设备已连接</text>
+    </view>
+    <view class="tem-container">
+      <text class="icontemperature icon-temperature"></text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：11.1{{numT}}℃</text>
+    </view>
 
-<view class="text_name">
-  <text>NUAA @WangYue</text>
+    <view class="hum-container">
+      <text class="iconhumidity icon-humidity" ></text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：64.5{{numH}}%</text>
+    </view>
+
+    <view class="devices-finder" >
+      <text space="ture" decode="ture">已发现&nbsp;10{{devices.number}}&nbsp;台可连接设备</text>
+    </view>
+    <scroll-view class="devices-list">
+      
+    </scroll-view>
+    
+    <view class="btn-start">
+      <button class="button1" hover-class="button1-hover" type="openBluetoothAdapter">
+        <text class="icon-bluetooth"></text>
+        <text space="ture" decode="ture">&nbsp;开始扫描</text>
+      </button>
+    </view>
+
+    <view class="btn-close">
+      <icon size="50" type="clear" color="steelblue"></icon>
+    </view>
+    
+    <view class="developer">
+      <text class="text-name">NUAA @WangYue</text>
+    </view>
+
+  </view>
 </view>
+
+
+
 
 
 

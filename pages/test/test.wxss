@@ -1,8 +1,110 @@
 /* pages/test/test.wxss */
+.container{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+
+.page-body{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+
+.devices-status{
+  position: fixed;
+  top: 2.5%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+  color: antiquewhite;
+}
+
+.tem-container{
+  position: fixed;
+  top: 8%;
+  left: 12.5%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+}
+.icontemperature{
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyB2aWV3Qm94PScwIDAgNTEyIDUxMic+PHRpdGxlPmlvbmljb25zLXY1LXE8L3RpdGxlPjxwYXRoIGQ9J00zMDcuNzIsMzAyLjI3YTgsOCwwLDAsMS0zLjcyLTYuNzVWODBhNDgsNDgsMCwwLDAtNDgtNDhoMGE0OCw0OCwwLDAsMC00OCw0OFYyOTUuNTJhOCw4LDAsMCwxLTMuNzEsNi43NCw5Ny41MSw5Ny41MSwwLDAsMC00NC4xOSw4Ni4wN0E5Niw5NiwwLDAsMCwzNTIsMzg0LDk3LjQ5LDk3LjQ5LDAsMCwwLDMwNy43MiwzMDIuMjdaJyBzdHlsZT0nZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDozMnB4Jy8+PGxpbmUgeDE9JzI1NicgeTE9JzExMicgeDI9JzI1NicgeTI9JzM4NCcgc3R5bGU9J2ZpbGw6bm9uZTtzdHJva2U6IzAwMDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MzJweCcvPjxjaXJjbGUgY3g9JzI1NicgY3k9JzM4NCcgcj0nNDgnLz48L3N2Zz4=);
+  background-size: cover;
+}
+.icon-temperature{
+  height: 24px;
+  width: 24px;
+}
+
+.hum-container{
+  position: fixed;
+  top: 15%;
+  left: 12.5%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+}
+.iconhumidity{
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyB2aWV3Qm94PScwIDAgNTEyIDUxMic+PHRpdGxlPmlvbmljb25zLXY1LXE8L3RpdGxlPjxwYXRoIGQ9J00zMjYuMSwyMzEuOWwtNDcuNSw3NS41YTMxLDMxLDAsMCwxLTcsNywzMC4xMSwzMC4xMSwwLDAsMS0zNS00OWw3NS41LTQ3LjVhMTAuMjMsMTAuMjMsMCwwLDEsMTEuNywwQTEwLjA2LDEwLjA2LDAsMCwxLDMyNi4xLDIzMS45WicvPjxwYXRoIGQ9J00yNTYsNjRDMTMyLjMsNjQsMzIsMTY0LjIsMzIsMjg3LjlBMjIzLjE4LDIyMy4xOCwwLDAsMCw4OC4zLDQzNi40YzEuMSwxLjIsMi4xLDIuNCwzLjIsMy41YTI1LjE5LDI1LjE5LDAsMCwwLDM3LjEtLjEsMTczLjEzLDE3My4xMywwLDAsMSwyNTQuOCwwLDI1LjE5LDI1LjE5LDAsMCwwLDM3LjEuMWwzLjItMy41QTIyMy4xOCwyMjMuMTgsMCwwLDAsNDgwLDI4Ny45QzQ4MCwxNjQuMiwzNzkuNyw2NCwyNTYsNjRaJyBzdHlsZT0nZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6MzJweCcvPjxsaW5lIHgxPScyNTYnIHkxPScxMjgnIHgyPScyNTYnIHkyPScxNjAnIHN0eWxlPSdmaWxsOm5vbmU7c3Ryb2tlOiMwMDA7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLXdpZHRoOjMycHgnLz48bGluZSB4MT0nNDE2JyB5MT0nMjg4JyB4Mj0nMzg0JyB5Mj0nMjg4JyBzdHlsZT0nZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDozMnB4Jy8+PGxpbmUgeDE9JzEyOCcgeTE9JzI4OCcgeDI9Jzk2JyB5Mj0nMjg4JyBzdHlsZT0nZmlsbDpub25lO3N0cm9rZTojMDAwO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDozMnB4Jy8+PGxpbmUgeDE9JzE2NS40OScgeTE9JzE5Ny40OScgeDI9JzE0Mi44NicgeTI9JzE3NC44Nicgc3R5bGU9J2ZpbGw6bm9uZTtzdHJva2U6IzAwMDtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MzJweCcvPjxsaW5lIHgxPSczNDYuNTEnIHkxPScxOTcuNDknIHgyPSczNjkuMTQnIHkyPScxNzQuODYnIHN0eWxlPSdmaWxsOm5vbmU7c3Ryb2tlOiMwMDA7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLXdpZHRoOjMycHgnLz48L3N2Zz4=);
+  background-size: cover;
+}
+.icon-humidity{
+  height: 24px;
+  width: 24px;
+}
+
+.text-num{
+  font-size: 22px;
+  color: black;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+  
+}
+
+.btn-close{
+  position: fixed;
+  top: 10%;
+  right: 12.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.devices-finder{
+  position: fixed;
+  top: 22%;
+  left: 10%;
+}
+
+.devices-list{
+  position: fixed;
+  top: 27%;
+  left:5%;
+  width: 90%;
+  height: 50%;
+  background-color: black;
+}
+
+.btn-satrt{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 .button1{
   height: 50px;
   width: 75%;
-  margin-top: 480px;
+  position: absolute;
+  bottom: 12.5%;
+  right: 12.5%;
   background-color: burlywood;
   color: white;
   border-radius: 100rpx;
@@ -16,11 +118,33 @@
   border: 0;
 }
 /*用border::after来删除button的默认边宽*/
-.text_name{
-  margin-top: 12px;
-  font-size: smaller;
-  color: gray;
+.button1-hover{
+  background-color: rgb(226, 203, 174);
+}
+.icon-bluetooth{
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyB2aWV3Qm94PScwIDAgNTEyIDUxMic+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwb2x5bGluZSBwb2ludHM9JzE0NCAzNTIgMzY4IDE2MCAyNTYgNDggMjU2IDQ2NCAzNjggMzUyIDE0NCAxNjAnIHN0eWxlPSdmaWxsOm5vbmU7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDozMnB4Jy8+PC9zdmc+);
+  height: 20px;
+  width: 20px;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center; 
+}
+
+.developer{
+  position: fixed;
+  bottom: 7.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+}
+.text-name{
+  font-size: smaller;
+  color: gray;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  
 }

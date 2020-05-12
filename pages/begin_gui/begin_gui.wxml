@@ -17,7 +17,7 @@ module.exports.len = function(arr) {
 </button>
 
 
-<view class="devices_summary">已发现{{devices.length}}个外围设备</view> 
+<view class="devices_summary">已发现{{devices.length}}台可连接设备</view> 
 <scroll-view  class="device_list" scroll-y scroll-with-animation>
  <view wx:for="{{devices}}" wx:key="index"
    data-device-id="{{item.deviceId}}"
