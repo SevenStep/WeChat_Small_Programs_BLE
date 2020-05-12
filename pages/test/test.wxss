@@ -39,8 +39,8 @@
   background-size: cover;
 }
 .icon-temperature{
-  height: 24px;
-  width: 24px;
+  height: 48rpx;
+  width: 48rpx;
 }
 
 .hum-container{
@@ -57,12 +57,12 @@
   background-size: cover;
 }
 .icon-humidity{
-  height: 24px;
-  width: 24px;
+  height: 48rpx;
+  width: 48rpx;
 }
 
 .text-num{
-  font-size: 22px;
+  font-size: 44rpx;
   color: black;
   display: flex;
   flex-direction:row;
@@ -84,6 +84,7 @@
   position: fixed;
   top: 23.5%;
   left: 10%;
+  font-size: 26rpx;
 }
 
 .devices-list{
@@ -102,7 +103,7 @@
   justify-content: center;
 }
 .button1{
-  height: 50px;
+  height: 100rpx;
   width: 75%;
   position: absolute;
   bottom: 10%;
@@ -125,9 +126,15 @@
 }
 .icon-bluetooth{
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyB2aWV3Qm94PScwIDAgNTEyIDUxMic+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwb2x5bGluZSBwb2ludHM9JzE0NCAzNTIgMzY4IDE2MCAyNTYgNDggMjU2IDQ2NCAzNjggMzUyIDE0NCAxNjAnIHN0eWxlPSdmaWxsOm5vbmU7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDozMnB4Jy8+PC9zdmc+);
-  height: 20px;
-  width: 20px;
+  height: 40rpx;
+  width: 40rpx;
   background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.text-start{
+  font-size: 36rpx;
   display: flex;
   align-items: center;
   justify-content: center; 
@@ -142,11 +149,11 @@
   justify-content: center; 
 }
 .text-name{
-  font-size: smaller;
+  font-size: 26rpx;
   color: gray;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center; 
-  
+  font-family: "YaHei";
 }

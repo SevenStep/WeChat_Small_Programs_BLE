@@ -24,12 +24,12 @@
     <view class="btn-start">
       <button class="button1" hover-class="button1-hover" type="openBluetoothAdapter">
         <text class="icon-bluetooth"></text>
-        <text space="ture" decode="ture">&nbsp;开始扫描</text>
+        <text class="text-start" space="ture" decode="ture">&nbsp;开始扫描</text>
       </button>
     </view>
 
     <view class="btn-close">
-      <icon size="50" type="clear" color="steelblue"></icon>
+      <icon size="100rpx" type="clear" color="steelblue"></icon>
     </view>
     
     <view class="developer">
