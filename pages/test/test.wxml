@@ -1,41 +1,61 @@
 <!--pages/test/test.wxml-->
 <view class="container">
   <view class="page-body">
+
     <view class="devices-status">
-      <text>设备已连接</text>
+      <text>{{connected==false? '设备未连接':'设备已连接'}}</text>
     </view>
+
     <view class="tem-container">
       <text class="icontemperature icon-temperature"></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：11.1{{numT}}℃</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：{{numT}}℃</text>
     </view>
 
     <view class="hum-container">
       <text class="iconhumidity icon-humidity" ></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：64.5{{numH}}%</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：{{numH}}%</text>
     </view>
 
     <view class="devices-finder" >
-      <text space="ture" decode="ture">已发现&nbsp;10{{devices.number}}&nbsp;台可连接设备</text>
+      <text space="ture" decode="ture">已发现&nbsp;{{devices.number}}&nbsp;台可连接设备</text>
     </view>
-    <scroll-view class="devices-list">
-      
+    
+    <scroll-view class="devices-list" scroll-y scroll-with-animation>
+      <view
+        wx:for="{{devices}}" wx:key="index"
+        class="devices-item-{{index%2==0? 'odd':'even'}}"
+        data-device-id="{{item.deviceId}}"
+        data-name="{{item.name||item.localName}}"
+        bindtap="createBLEConnection"
+        hover-class="devices-item-{{index%2==0? 'odd':'even'}}-hover">
+        <view class = "text-devices" space="ture" decode="ture">📱 {{item.name}}</view>
+      </view>
     </scroll-view>
     
-    <view class="btn-start">
-      <button class="button1" hover-class="button1-hover" type="openBluetoothAdapter">
+    <view class="start">
+      <button class="btn-start" hover-class="btn-start-hover" bindtap="openBluetoothAdapter">
         <text class="icon-bluetooth"></text>
         <text class="text-start" space="ture" decode="ture">&nbsp;开始扫描</text>
       </button>
     </view>
 
-    <view class="btn-close">
-      <icon size="100rpx" type="clear" color="steelblue"></icon>
+    <view class="close">
+      <button class="btn-close" hover-class="btn-close-hover" bindtap="closeBLEConnection">
+        <icon size="100rpx" type="clear" color="steelblue"></icon>
+      </button>
     </view>
     
-    <view class="developer">
-      <text class="text-name">NUAA @WangYue</text>
+    <view class="version">
+      <button class="btn-version" hover-class="none" bindtap="onChangeShowState">
+        <text class="text-version" space="ture" decode="ture">SMSA@NUAA&nbsp;{{version_number}}</text>
+      </button>
     </view>
-
+    
+    <view class='developer' wx:if="{{showView !=''}}">
+      <text class="text-developer" space="ture" decode="ture">Developer&nbsp;@WangYue</text>
+    </view>
+    
+    
   </view>
 </view>
 

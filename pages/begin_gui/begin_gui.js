@@ -56,6 +56,7 @@ Page({
       }
     })
   },
+
   getBluetoothAdapterState(){
    wx.getBluetoothAdapterState({
     success: function(res) {
@@ -68,6 +69,7 @@ Page({
       }
     })
   },
+
   startBluetoothDevicesDiscovery(){
     if(this._discoveryStarted){
       //1.this的四种用法2. _的用法 3.discivertStarted 这个参数哪里来的？API并未提及这个
@@ -82,11 +84,12 @@ Page({
       }
     })
   },
-  
+
   stopBluetoothDevicesDiscovery() {
     console.log("stopBluetoothDevicesDiscovery")
      wx.stopBluetoothDevicesDiscovery() 
   },
+
   onBluetoothDeviceFound() {
     //安卓部分机型需要打开位置权限才能搜索到设备
     wx.onBluetoothDeviceFound((res) => {
@@ -96,7 +99,6 @@ Page({
           return
         }
         const foundDevices = this.data.devices
-        //this指向全局变量 29
         const idx = inArray(foundDevices, 'deviceId', device.deviceId)
         //判定值等于值 device.deviceId是从哪里传递过来的的？
         const data = {}
@@ -158,7 +160,8 @@ Page({
         }
       },
     })
-  },//serviceID  蓝牙服务的uuid，
+  },//serviceID  蓝牙服务的uuid
+
   getBLEDeviceCharacteristics(deviceId, serviceId){
    wx.getBLEDeviceCharacteristics({
      deviceId,
@@ -258,8 +261,10 @@ Page({
     })
     
   },
+
   closeBluetoothAdapter(){
     wx.closeBluetoothAdapter()
     this._discoveryStarted=false
   } 
+  
 })

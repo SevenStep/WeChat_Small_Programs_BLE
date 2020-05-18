@@ -34,7 +34,6 @@
 
 }
 .device_item_hover{
-
   background-color: #81D8CF;
 }
 .connected_info {

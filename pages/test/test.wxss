@@ -71,13 +71,28 @@
   
 }
 
-.btn-close{
+.close{
   position: fixed;
   top: 10%;
   right: 12.5%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.btn-close{
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-close::after{
+  border-radius: 50rpx;
+  border: 0;
+}
+.btn-close-hover{
+  background-color:red;
 }
 
 .devices-finder{
@@ -94,35 +109,73 @@
   width: 90%;
   height: 50%;
   background-color: ghostwhite;
-}
-
-.btn-satrt{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.button1{
+.devices-item-odd{
+  width: 100%;
+  height: 20%;
+  background-color: ghostwhite;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.devices-item-odd-hover{
+  background-color: #81D8CF;
+}
+.devices-item-even{
+  width: 100%;
+  height: 20%;
+  background-color: rgb(201, 211, 205);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.devices-item-even-hover{
+  background-color: rgb(160, 160, 160);
+}
+
+.text-devices{
+  position: absolute;
+  left: 3%;
+  font-size: 48rpx;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+
+
+.start{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-start{
   height: 100rpx;
   width: 75%;
-  position: absolute;
+  position: fixed;
   bottom: 10%;
   right: 12.5%;
-  background-color: burlywood;
-  color: white;
+  background-color: rgb(245, 168, 75);
   border-radius: 100rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.button1::after {
+.btn-start::after{
   border-radius: 100rpx;
   border: 0;
 }
 /*用border::after来删除button的默认边宽*/
-.button1-hover{
-  background-color: rgb(226, 203, 174);
+.btn-start-hover{
+  background-color: burlywood;
 }
 .icon-bluetooth{
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyB2aWV3Qm94PScwIDAgNTEyIDUxMic+PHRpdGxlPmlvbmljb25zLXY1LWg8L3RpdGxlPjxwb2x5bGluZSBwb2ludHM9JzE0NCAzNTIgMzY4IDE2MCAyNTYgNDggMjU2IDQ2NCAzNjggMzUyIDE0NCAxNjAnIHN0eWxlPSdmaWxsOm5vbmU7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDozMnB4Jy8+PC9zdmc+);
@@ -135,21 +188,33 @@
 }
 .text-start{
   font-size: 36rpx;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center; 
 }
 
-.developer{
+.version{
   position: fixed;
   bottom: 5%;
+  height: 26rpx;
+  color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center; 
 }
-.text-name{
-  font-size: 26rpx;
+.btn-version{
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+}
+.btn-version::after {
+  border: 0;
+}
+.text-version{
+  font-size: 24rpx;
   color: gray;
   display: flex;
   flex-direction: row;
@@ -157,3 +222,21 @@
   justify-content: center; 
   font-family: "YaHei";
 }
+
+
+.developer{
+  position: fixed;
+  bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+}
+.text-developer{
+  font-size: 20rpx;
+  color: gray;
+  align-items: center;
+  font-family: "YaHei";
+}
+
+
