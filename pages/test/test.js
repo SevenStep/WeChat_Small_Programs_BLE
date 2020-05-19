@@ -1,24 +1,32 @@
 // pages/test/test.js
 
+
+/**
+ * 
+ * @param {*} arr 
+ * @param {*} key 
+ * @param {*} val 
+ */
 function inArray(arr, key, val) {
   for (let i = 0; i < arr.length; i++) {
      if (arr[i][key] ===  val){
        return i;
        // [i]代表索引，[key]代表下属的元素
-     }
-   
+     }  
    }
    return -1;
  }
- //arrayBuffer 转16进制字符串示例
+ 
+
+ /**
+  * arrayBuffer 转16进制字符串示例
+  * @param {*} buffer 
+  */
  function ab2hex(buffer) {
    var hexArr = Array.prototype.map.call(
-     //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array
      new Uint8Array(buffer),
      function (bit) {
        return ('00' + bit.toString(16)).slice(-2)
-       //j将bit数字值转化成16位的字符串，加'00'啥意思不懂，slice是取一部分，倒数的第二位到最后
-       //我又有新问题了。直接buffer转16位不就完了吗？为什么还要前面取那么多八进制什么的。这个arrayBuffer是几位的呢？
      }
    )
    return hexArr.join('');
@@ -26,18 +34,16 @@ function inArray(arr, key, val) {
 
 
 Page({
-
   /**
-   * 页面的初始数据
+   * 初始数据
    */
   data: {
     version_number: ' v0.0.3',//版本号
     showView: false,//developer显示状态
     devices:[],//设备
     connected:false,//设备连接状态
-    chs:[],
-    numT:0,
-    numH:0,
+    Tem_num:0,//温度值
+    Hum_num:0,//湿度值
   },
 
 
@@ -90,11 +96,6 @@ Page({
    * 请在搜索并连接到设备后调用 wx.stopBluetoothDevicesDiscovery 方法停止搜索
    */
   startBluetoothDevicesDiscovery(){
-    // if(this._discoveryStarted){
-    //   //1.this的四种用法2. _的用法 3.discivertStarted 这个参数哪里来的？API并未提及这个
-    //   return
-    // }
-    // this._discoveryStarted=true
     wx.startBluetoothDevicesDiscovery({     
       success: (res)=> {
         console.log("开始查找蓝牙设备",res)
@@ -111,6 +112,7 @@ Page({
     wx.onBluetoothDeviceFound((res) => {
       console.log("正在查找蓝牙设备")
       res.devices.forEach(device => {
+        console.log(device)
         if (!device.name && !device.localName) {
           return
         }
@@ -118,14 +120,16 @@ Page({
         const idx = inArray(foundDevices, 'deviceId', device.deviceId)
         const data = {}
         if (idx === -1) {
-          data[`devices[${foundDevices.length}]`] = device
-          //一开始什么设备也没发现的 时候，device被赋值给data.devices[0]
+          data[`devices[${foundDevices.length}]`] = device//一开始什么设备也没发现的 时候，device被赋值给data.devices[0]
         } 
         else {
            data[`devices[${idx}]`] = device
+
           }
+        
         this.setData(data)
       })
+      console.log(device)
     })
   },
 
@@ -152,7 +156,6 @@ Page({
   },
 
 
-
  /**
    * 连接低功耗蓝牙设备
    * 若小程序在之前已有搜索过某个蓝牙设备并成功建立连接
@@ -165,6 +168,14 @@ Page({
         console.log("建立连接-震动",res)
       },
     })
+    if (data[connected] == true){
+      wx.closeBLEConnection({
+        deviceId: this.data.deviceId
+      })
+      this.setData({
+        connected: false,
+      })
+    }
     const ds = e.currentTarget.dataset//currentTarget和target事件，currentTarget代表的是手指触摸到选项，进行连接
     const deviceId = ds.deviceId
     const name = ds.name
@@ -184,8 +195,55 @@ Page({
   },
 
 
-
-
+  getBLEDeviceCharacteristics(deviceId, serviceId){
+    wx.getBLEDeviceCharacteristics({
+      deviceId,
+      serviceId,
+      success: (res) => {
+        console.log('getBLEDeviceCharacteristics success', res.characteristics)
+        for(let i=0;i<res.characteristics.length;i++){
+          let item=res.characteristics[i]
+          if (item.properties.notify || item.properties.indicate){   
+             wx.notifyBLECharacteristicValueChange({
+               deviceId,
+               serviceId,
+               characteristicId: item.uuid,
+               state: true,
+               success:function(res){
+                  console.log("notify success")
+               }
+             })
+           }
+         }
+       },
+      fail: (res)=> {
+        console.error('特征值获取失败',res)
+       }
+     }),
+     wx.onBLECharacteristicValueChange( (res) => {
+     
+      console.log(`characteristic ${res.characteristicId} has changed, `)
+        
+      console.log(ab2hex(res.value))
+           
+      //console.log("wendu", ab2hex(res.value).slice(0, 4))   slice取值 是索引[0,4)
+      var a = parseInt( (ab2hex(res.value).slice(0, 4)),16)
+      //console.log(a)
+      var T = (a * 175 / (65535) - 45).toFixed(2)
+      console.log("Temperature",T)
+      this.setData({
+        numT: T
+      })
+      var b = parseInt((ab2hex(res.value).slice(4, 8)), 16)
+      console.log(b)
+      var H = (b * 100 / (65535)).toFixed(2)
+      console.log("Humidity", H)
+      this.setData({
+        numH: H
+      })
+     })
+     
+   },
 
   /**
    * 断开与低功耗蓝牙设备的连接
@@ -201,60 +259,56 @@ Page({
     })
     this.setData({
       connected: false,
-      chs: [],
-      canWrite: false,
     })
-  },
-
-
-
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
+
+
+//   /**
+//    * 生命周期函数--监听页面初次渲染完成
+//    */
+//   onReady: function () {
+
+//   },
+
+//   /**
+//    * 生命周期函数--监听页面显示
+//    */
+//   onShow: function () {
+
+//   },
+
+//   /**
+//    * 生命周期函数--监听页面隐藏
+//    */
+//   onHide: function () {
+
+//   },
+
+//   /**
+//    * 生命周期函数--监听页面卸载
+//    */
+//   onUnload: function () {
+
+//   },
+
+//   /**
+//    * 页面相关事件处理函数--监听用户下拉动作
+//    */
+//   onPullDownRefresh: function () {
+
+//   },
+
+//   /**
+//    * 页面上拉触底事件的处理函数
+//    */
+//   onReachBottom: function () {
+
+//   },
+
+//   /**
+//    * 用户点击右上角分享
+//    */
+//   onShareAppMessage: function () {
+
+//   }
 })
