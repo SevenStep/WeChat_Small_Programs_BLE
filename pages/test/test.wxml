@@ -17,15 +17,17 @@
     </view>
 
     <view class="devices-finder" >
-      <text space="ture" decode="ture">已发现&nbsp;{{devices.length}}&nbsp;台可连接设备,请选择对应可用设备</text>
+      <text space="ture" decode="ture">已发现&nbsp;{{devices.length}}&nbsp;台设备,请选择对应可用设备</text>
     </view>
     
     <scroll-view class="devices-list" scroll-y scroll-with-animation>
       <view
         wx:for="{{devices}}" wx:key="index"
         class="devices-item-{{index%2==0? 'odd':'even'}}"
-        data-device-id="{{item.deviceId}}"
+        data="{{item}}"
         data-name="{{item.name||item.localName}}"
+        data-deviceId="{{item.deviceId}}"
+        data-advertisServiceUUIDs="{{item.advertisServiceUUIDs}}"
         bindtap="createBLEConnection"
         hover-class="devices-item-{{index%2==0? 'odd':'even'}}-hover">
         <view class = "text-devices" space="ture" decode="ture">📱 {{item.name||item.localName}}</view>

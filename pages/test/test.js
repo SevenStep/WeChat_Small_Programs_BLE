@@ -1,28 +1,13 @@
 // pages/test/test.js
 
 
-/**
- * 
- * @param {*} arr 
- * @param {*} key 
- * @param {*} val 
- */
-function inArray(arr, key, val) {
-  for (let i = 0; i < arr.length; i++) {
-     if (arr[i][key] ===  val){
-       return i;
-       // [i]代表索引，[key]代表下属的元素
-     }  
-   }
-   return -1;
- }
- 
+
 
  /**
   * arrayBuffer 转16进制字符串示例
   * @param {*} buffer 
   */
- function ab2hex(buffer) {
+  function ab2hex(buffer) {
    var hexArr = Array.prototype.map.call(
      new Uint8Array(buffer),
      function (bit) {
@@ -34,13 +19,16 @@ function inArray(arr, key, val) {
 
 
 Page({
+
+  
   /**
    * 初始数据
    */
   data: {
     version_number: ' v0.0.3',//版本号
     showView: false,//developer显示状态
-    devices:[],//设备
+    devices:[],//设备列表
+    device_connected:[],//当前连接设备信息
     connected:false,//设备连接状态
     Tem_num:0,//温度值
     Hum_num:0,//湿度值
@@ -57,7 +45,7 @@ Page({
   /**
    * 显示函数--developer是否显示
    */
-  onChangeShowState: function () {
+  onChangeShowState() {
     this.setData({
       showView: (!this.data.showView),
     })
@@ -112,24 +100,23 @@ Page({
     wx.onBluetoothDeviceFound((res) => {
       console.log("正在查找蓝牙设备")
       res.devices.forEach(device => {
-        console.log(device)
+        var that = this
+        //检测设备名称，没名字的不显示
         if (!device.name && !device.localName) {
           return
         }
-        const foundDevices = this.data.devices
-        const idx = inArray(foundDevices, 'deviceId', device.deviceId)
-        const data = {}
-        if (idx === -1) {
-          data[`devices[${foundDevices.length}]`] = device//一开始什么设备也没发现的 时候，device被赋值给data.devices[0]
+        //为devices添加项目devices_index
+        const devices_list = that.data.devices//读取data.devices
+        const devices_index = devices_list.findIndex(a => a.deviceId === device.deviceId)
+        if (devices_index === -1) {
+          console.log('找到新设备:',device)
+          devices_list.push(device)//数组末尾添加一个对象用push，concat加不进去
         } 
-        else {
-           data[`devices[${idx}]`] = device
-
-          }
-        
-        this.setData(data)
+        this.setData({
+          devices: devices_list
+        })
       })
-      console.log(device)
+      console.log(this.data.devices)
     })
   },
 
@@ -151,48 +138,33 @@ Page({
    * 与 wx.openBluetoothAdapter 成对调用
    */
   closeBluetoothAdapter(){
-    wx.closeBluetoothAdapter()
-    this._discoveryStarted=false
-  },
-
-
- /**
-   * 连接低功耗蓝牙设备
-   * 若小程序在之前已有搜索过某个蓝牙设备并成功建立连接
-   * 可直接传入之前搜索获取的 deviceId 直接尝试连接该设备
-   * 无需进行搜索操作
-   */
-  createBLEConnection(e) {
-    wx.vibrateShort({
-      complete: (res) => {
-        console.log("建立连接-震动",res)
-      },
-    })
-    if (data[connected] == true){
-      wx.closeBLEConnection({
-        deviceId: this.data.deviceId
-      })
-      this.setData({
-        connected: false,
-      })
-    }
-    const ds = e.currentTarget.dataset//currentTarget和target事件，currentTarget代表的是手指触摸到选项，进行连接
-    const deviceId = ds.deviceId
-    const name = ds.name
-    wx.createBLEConnection({
-      deviceId,
-      success: (res) => {
-        console.log("创建BLE连接成功")
-        this.setData({
-          connected: true,
-          name,
-          deviceId,
-        })
-        this.getBLEDeviceServices(deviceId)
+    wx.closeBluetoothAdapter({
+      success (res) {
+        console.log("关闭蓝牙模块")
       }
     })
-    this.stopBluetoothDevicesDiscovery()
   },
+
+  /**
+   * 获取蓝牙设备所有服务(service)
+   * @param {*} deviceId 
+   */
+  getBLEDeviceServices(deviceId){
+    wx.getBLEDeviceServices({
+      deviceId,
+      success: (res) => {
+        console.log("services:",res.services)
+        console.log('advertisServiceUUIDs:',this.data.device_connected.advertisserviceuuids[0])
+        for(let i=0;i<res.services.length;i++){
+          if (res.services[i].uuid === this.data.device_connected.advertisserviceuuids[0]){//advertisServiceUUIDs
+            this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
+            console.log('100',res.services[i].uuid)
+            return
+          }
+        }
+      },
+    })
+  },//serviceID  蓝牙服务的uuid  
 
 
   getBLEDeviceCharacteristics(deviceId, serviceId){
@@ -200,7 +172,7 @@ Page({
       deviceId,
       serviceId,
       success: (res) => {
-        console.log('getBLEDeviceCharacteristics success', res.characteristics)
+        console.log('成功获取蓝牙设备特征值', res.characteristics)
         for(let i=0;i<res.characteristics.length;i++){
           let item=res.characteristics[i]
           if (item.properties.notify || item.properties.indicate){   
@@ -221,47 +193,89 @@ Page({
        }
      }),
      wx.onBLECharacteristicValueChange( (res) => {
-     
       console.log(`characteristic ${res.characteristicId} has changed, `)
-        
       console.log(ab2hex(res.value))
-           
       //console.log("wendu", ab2hex(res.value).slice(0, 4))   slice取值 是索引[0,4)
       var a = parseInt( (ab2hex(res.value).slice(0, 4)),16)
       //console.log(a)
       var T = (a * 175 / (65535) - 45).toFixed(2)
       console.log("Temperature",T)
       this.setData({
-        numT: T
+        Tem_num: T
       })
       var b = parseInt((ab2hex(res.value).slice(4, 8)), 16)
       console.log(b)
       var H = (b * 100 / (65535)).toFixed(2)
       console.log("Humidity", H)
       this.setData({
-        numH: H
+        Hum_num: H
       })
      })
      
    },
 
+  
+
+
+/**
+   * 连接低功耗蓝牙设备
+   * 若小程序在之前已有搜索过某个蓝牙设备并成功建立连接
+   * 可直接传入之前搜索获取的 deviceId 直接尝试连接该设备
+   * 无需进行搜索操作
+   */
+  createBLEConnection(e) {
+    wx.vibrateShort({
+      complete: (res) => {
+        console.log("建立连接-震动",res)
+      },
+    })
+    //如果已经存在连接，断开连接
+    if (this.data.connected === "true"){
+      wx.closeBLEConnection({
+        deviceId: this.data.device_connected.deviceid
+      })
+      this.setData({
+        connected: false,
+      })
+    }
+    const device_data = e.currentTarget.dataset//获取本次事件data
+    console.log(device_data)
+    const deviceId = device_data.deviceid
+    wx.createBLEConnection({
+      deviceId,
+      success: (res) => {
+        console.log("创建BLE连接成功")
+        this.setData({
+          connected: true,
+          device_connected: device_data,
+        })
+        console.log("deviceId:",deviceId);
+        this.getBLEDeviceServices(deviceId);
+        wx.stopBluetoothDevicesDiscovery();
+      },
+      fail: (res) => {
+        console.log('fail:',res)
+      }
+    })
+    
+  },
+
   /**
    * 断开与低功耗蓝牙设备的连接
    */
-  closeBLEConnection: function() {
+  closeBLEConnection() {
     wx.vibrateShort({
       complete: (res) => {
         console.log("断开当前连接-震动",res)
       },
     })
     wx.closeBLEConnection({
-      deviceId: this.data.deviceId
+      deviceId: this.data.device_connected.deviceid
     })
     this.setData({
       connected: false,
     })
-  }
-
+  },
 
 //   /**
 //    * 生命周期函数--监听页面初次渲染完成

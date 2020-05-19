@@ -105,7 +105,8 @@ Page({
         if (idx === -1) {
           data[`devices[${foundDevices.length}]`] = device
           //一开始什么设备也没发现的 时候，device被赋值给data.devices[0],依然不是很懂为什么要用`$`我好想被这个东西给误导了。还是说不能嵌套[[]]这种？我在这边做个标记，后面再来调试，不是[[]]应该是 [][].
-        } else {
+        } 
+        else {
            data[`devices[${idx}]`] = device
           }
         this.setData(data)
@@ -151,8 +152,8 @@ Page({
       success: (res) => {
         console.log("services",res.services)
         for(let i=0;i<res.services.length;i++){
-          if (res.services[i].uuid === "0000FFF0-0000-1000-8000-00805F9B34FB"){
-            //是主服务是什么概念？ 四个services的isPrimary判定都为真，程序一开始选择的是第一个，借由蓝牙调试软件得出服务的serviceId
+          if (res.services[i].uuid === "0000180A-0000-1000-8000-00805F9B34FB"){
+            //是主服务是什么概念？ 四个services的isPrimary判定都为真，程序一开始选择的是第一个，借由蓝牙调试软件得出服务的serviceId0000FFF0-0000-1000-8000-00805F9B34FB
             this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
             console.log('100',res.services[i].uuid)
             return
