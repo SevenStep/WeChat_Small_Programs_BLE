@@ -1,5 +1,5 @@
 // pages/test/test.js
-
+const app = getApp()
 
 Page({
 
@@ -24,6 +24,11 @@ Page({
    */
   onLoad: function (options) {
     showView: (options.showView == "true" ? true : false)
+    // app.watch(this, {
+    //   devices: function (newVal) {
+    //     console.log(newVal)
+    //   }
+    // }) 
   },
 
   /**
@@ -39,30 +44,44 @@ Page({
    * 打开蓝牙适配器，开始扫描
    */
   openBluetoothAdapter: function () {
+    //刷新设备列表
+    this.setData({
+      devices:[]
+    })
     wx.vibrateShort({
-    complete: (res) => {
+      complete: (res) => {
       console.log("点击开始扫描-震动",res)
     },
     })
     //设备记录清零
-    this.setData({
-      decives:[]
-    })
+    
     wx.openBluetoothAdapter({
       success:(res)=>{
         console.log("打开蓝牙适配器",res)
+        
         this.startBluetoothDevicesDiscovery()
       },
-      // fail: (res) => {
-      //   if (res.errCode === 10001) {//当前蓝牙适配器不可用
-      //     wx.onBluetoothAdapterStateChange(function(res){
-      //       console.log("BluetoothAdapterStateChange", res)
-      //       if(res.available){
-      //         this.startBluetoothDevicesDiscovery()
-      //         }
-      //       })
-      //     }
-      //   }
+      fail: (res) => {
+        //当前蓝牙适配器不可用
+        if (res.errCode == 10001) {//当前蓝牙适配器不可用
+          wx.showModal({
+            title: "注意",
+            content: '请检查设备蓝牙是否打开',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {//这里是点击了确定以后
+                console.log('确定')
+              } 
+            }
+          }),
+          wx.onBluetoothAdapterStateChange(function(res){
+            console.log("BluetoothAdapterStateChange", res)
+            if(res.available){
+              this.startBluetoothDevicesDiscovery()
+              }
+            })
+          }
+        }
     })
   },
 
@@ -86,7 +105,6 @@ Page({
    */
   onBluetoothDeviceFound() {
     wx.onBluetoothDeviceFound((res) => {
-      console.log("正在查找蓝牙设备")
       res.devices.forEach(device => {
         var that = this
         //检测设备名称，没名字的不显示
@@ -94,8 +112,8 @@ Page({
           return
         }
         //为devices添加项目devices_index
-        let devices_list = that.data.devices//读取data.devices
-        if (devices_list.findIndex(a => a.deviceId === device.deviceId) === -1) {
+        let devices_list = this.data.devices//读取data.devices
+        if (devices_list.findIndex(a => a.deviceId == device.deviceId) == -1) {
           console.log('找到新设备:',device)
           devices_list.push(device)//数组末尾添加一个对象用push，concat加不进去
         } 
@@ -143,7 +161,7 @@ Page({
         console.log("services:",res.services)//serviceID  蓝牙服务的uuid  
         console.log('advertisServiceUUIDs:',this.data.device_connected.advertisserviceuuids[0])
         //查找主服务uuid并确认连接
-        let uuid_index = res.services.findIndex(a => a.uuid === this.data.device_connected.advertisserviceuuids[0])
+        let uuid_index = res.services.findIndex(a => a.uuid == this.data.device_connected.advertisserviceuuids[0])
         if (uuid_index != -1){
           console.log("已找到主服务uuid，确认连接")
           this.getBLEDeviceCharacteristics(deviceId, res.services[uuid_index].uuid)
@@ -168,7 +186,7 @@ Page({
       success: (res) => {
         console.log('成功获取蓝牙设备特征值', res.characteristics)
         //启用低功耗蓝牙设备特征值变化时的 notify 功能，订阅特征值
-        let characteristic_index = res.characteristics.findIndex(a => a.properties.notify || a.properties.indicate === true)
+        let characteristic_index = res.characteristics.findIndex(a => a.properties.notify || a.properties.indicate == true)
         wx.notifyBLECharacteristicValueChange({
           deviceId,
           serviceId,
@@ -219,7 +237,7 @@ Page({
       },
     })
     //如果已经存在连接，断开连接
-    if (this.data.connected === "true"){
+    if (this.data.connected == true){
       wx.closeBLEConnection({
         deviceId: this.data.device_connected.deviceid
       })
@@ -272,7 +290,6 @@ Page({
       connected: false,
       Tem_num: "无连接",
       Hum_num: "无连接",
-      
     })
   },
 
