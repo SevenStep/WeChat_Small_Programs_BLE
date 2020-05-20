@@ -8,16 +8,16 @@
 
     <view class="tem-container">
       <text class="icontemperature icon-temperature"></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：{{Tem_num}}℃</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：{{Tem_num}}</text>
     </view>
 
     <view class="hum-container">
       <text class="iconhumidity icon-humidity" ></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：{{Hum_num}}%</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：{{Hum_num}}</text>
     </view>
 
     <view class="devices-finder" >
-      <text space="ture" decode="ture">已发现&nbsp;{{devices.length}}&nbsp;台设备,请选择对应可用设备</text>
+      <text space="ture" decode="ture">已发现&nbsp;{{devices.length}}&nbsp;台设备,请选择可用设备连接</text>
     </view>
     
     <scroll-view class="devices-list" scroll-y scroll-with-animation>
@@ -30,7 +30,8 @@
         data-advertisServiceUUIDs="{{item.advertisServiceUUIDs}}"
         bindtap="createBLEConnection"
         hover-class="devices-item-{{index%2==0? 'odd':'even'}}-hover">
-        <view class = "text-devices" space="ture" decode="ture">📱 {{item.name||item.localName}}</view>
+        <view class = "text-devices" wx:if = "{{item.deviceId == device_connected.deviceid}}" space="ture" decode="ture">✔ {{item.name||item.localName}}</view>
+        <view class = "text-devices" wx:if = "{{item.deviceId != device_connected.deviceid}}" space="ture" decode="ture">📱 {{item.name||item.localName}}</view>
       </view>
     </scroll-view>
     

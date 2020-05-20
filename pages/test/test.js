@@ -1,23 +1,6 @@
 // pages/test/test.js
 
 
-
-
- /**
-  * arrayBuffer 转16进制字符串示例
-  * @param {*} buffer 
-  */
-  function ab2hex(buffer) {
-   var hexArr = Array.prototype.map.call(
-     new Uint8Array(buffer),
-     function (bit) {
-       return ('00' + bit.toString(16)).slice(-2)
-     }
-   )
-   return hexArr.join('');
- }
-
-
 Page({
 
   
@@ -25,13 +8,14 @@ Page({
    * 初始数据
    */
   data: {
-    version_number: ' v0.0.3',//版本号
-    showView: false,//developer显示状态
+    version_number: ' v0.1.0',//版本号
     devices:[],//设备列表
     device_connected:[],//当前连接设备信息
     connected:false,//设备连接状态
-    Tem_num:0,//温度值
-    Hum_num:0,//湿度值
+    Tem_num:"无连接",//温度值
+    Hum_num:"无连接",//湿度值
+
+    showView: false,//developer显示状态
   },
 
 
@@ -59,6 +43,10 @@ Page({
     complete: (res) => {
       console.log("点击开始扫描-震动",res)
     },
+    })
+    //设备记录清零
+    this.setData({
+      decives:[]
     })
     wx.openBluetoothAdapter({
       success:(res)=>{
@@ -106,9 +94,8 @@ Page({
           return
         }
         //为devices添加项目devices_index
-        const devices_list = that.data.devices//读取data.devices
-        const devices_index = devices_list.findIndex(a => a.deviceId === device.deviceId)
-        if (devices_index === -1) {
+        let devices_list = that.data.devices//读取data.devices
+        if (devices_list.findIndex(a => a.deviceId === device.deviceId) === -1) {
           console.log('找到新设备:',device)
           devices_list.push(device)//数组末尾添加一个对象用push，concat加不进去
         } 
@@ -153,71 +140,73 @@ Page({
     wx.getBLEDeviceServices({
       deviceId,
       success: (res) => {
-        console.log("services:",res.services)
+        console.log("services:",res.services)//serviceID  蓝牙服务的uuid  
         console.log('advertisServiceUUIDs:',this.data.device_connected.advertisserviceuuids[0])
-        for(let i=0;i<res.services.length;i++){
-          if (res.services[i].uuid === this.data.device_connected.advertisserviceuuids[0]){//advertisServiceUUIDs
-            this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
-            console.log('100',res.services[i].uuid)
-            return
-          }
+        //查找主服务uuid并确认连接
+        let uuid_index = res.services.findIndex(a => a.uuid === this.data.device_connected.advertisserviceuuids[0])
+        if (uuid_index != -1){
+          console.log("已找到主服务uuid，确认连接")
+          this.getBLEDeviceCharacteristics(deviceId, res.services[uuid_index].uuid)
+          return
         }
+        
       },
     })
-  },//serviceID  蓝牙服务的uuid  
+  },
 
 
-  getBLEDeviceCharacteristics(deviceId, serviceId){
+  /**
+   * 获取蓝牙设备某个服务中所有特征值(characteristic)
+   * @param {*} deviceId 
+   * @param {*} advertisServiceUUIDs 
+   */
+  getBLEDeviceCharacteristics(deviceId, serviceId) {
+    //获取蓝牙设备某个服务中所有特征值(characteristic)。
     wx.getBLEDeviceCharacteristics({
       deviceId,
       serviceId,
       success: (res) => {
         console.log('成功获取蓝牙设备特征值', res.characteristics)
-        for(let i=0;i<res.characteristics.length;i++){
-          let item=res.characteristics[i]
-          if (item.properties.notify || item.properties.indicate){   
-             wx.notifyBLECharacteristicValueChange({
-               deviceId,
-               serviceId,
-               characteristicId: item.uuid,
-               state: true,
-               success:function(res){
-                  console.log("notify success")
-               }
-             })
-           }
-         }
-       },
+        //启用低功耗蓝牙设备特征值变化时的 notify 功能，订阅特征值
+        let characteristic_index = res.characteristics.findIndex(a => a.properties.notify || a.properties.indicate === true)
+        wx.notifyBLECharacteristicValueChange({
+          deviceId,
+          serviceId,
+          characteristicId: res.characteristics[characteristic_index].uuid,
+          state: true,//是否启用notify
+          success:function(res){
+             console.log("成功订阅notify特征值")
+          },
+        })
+      },
       fail: (res)=> {
         console.error('特征值获取失败',res)
-       }
-     }),
-     wx.onBLECharacteristicValueChange( (res) => {
-      console.log(`characteristic ${res.characteristicId} has changed, `)
-      console.log(ab2hex(res.value))
-      //console.log("wendu", ab2hex(res.value).slice(0, 4))   slice取值 是索引[0,4)
-      var a = parseInt( (ab2hex(res.value).slice(0, 4)),16)
-      //console.log(a)
-      var T = (a * 175 / (65535) - 45).toFixed(2)
-      console.log("Temperature",T)
+      },
+    }),
+    //监听低功耗蓝牙设备的特征值变化事件。必须先启用 notifyBLECharacteristicValueChange 接口才能接收到设备推送的 notification。
+    wx.onBLECharacteristicValueChange( (res) => {
+      console.log(`特征值${res.characteristicId} 已改变：`)
+      //采用uint8是因为尽管是16位数据，但是蓝牙传递队列已经把数据转化成8位了，这个是蓝牙本身的库函数决定的。
+      let r_data = new Uint8Array(res.value)//received_data接收的数据
+      // let r_data_16
+      // r_data_16 = r_data.forEach(function(v,i,a) {//v是数组元素，i数组索引，a是数组本身
+      //   a[i] =v.toString(16)
+      // })
+      // r_data_16 = r_data_16.join('')
+      console.log('r_data:',r_data)
+
+      let Tem = ((r_data[0]*256+r_data[1]) * 175 / (Math.pow(2,16)-1) - 45).toFixed(2)
+      let Hum = ((r_data[2]*256+r_data[3]) * 100 / (Math.pow(2,16)-1)).toFixed(2)
+      console.log("Tem:",Tem),
+      console.log("Hum:",Hum),
       this.setData({
-        Tem_num: T
+        Tem_num: `${Tem}℃`,
+        Hum_num: `${Hum}%`,
       })
-      var b = parseInt((ab2hex(res.value).slice(4, 8)), 16)
-      console.log(b)
-      var H = (b * 100 / (65535)).toFixed(2)
-      console.log("Humidity", H)
-      this.setData({
-        Hum_num: H
-      })
-     })
-     
-   },
+    })
+  },
 
-  
-
-
-/**
+  /**
    * 连接低功耗蓝牙设备
    * 若小程序在之前已有搜索过某个蓝牙设备并成功建立连接
    * 可直接传入之前搜索获取的 deviceId 直接尝试连接该设备
@@ -236,11 +225,14 @@ Page({
       })
       this.setData({
         connected: false,
+        device_connected:[],
+        Tem_num: "获取中",
+        Hum_num: "获取中",
       })
     }
-    const device_data = e.currentTarget.dataset//获取本次事件data
+    let device_data = e.currentTarget.dataset//获取本次事件data
     console.log(device_data)
-    const deviceId = device_data.deviceid
+    let deviceId = device_data.deviceid
     wx.createBLEConnection({
       deviceId,
       success: (res) => {
@@ -248,10 +240,13 @@ Page({
         this.setData({
           connected: true,
           device_connected: device_data,
+          Tem_num: "获取中",
+          Hum_num: "获取中",
         })
         console.log("deviceId:",deviceId);
         this.getBLEDeviceServices(deviceId);
         wx.stopBluetoothDevicesDiscovery();
+        console.log("设备已连接，停止查找");
       },
       fail: (res) => {
         console.log('fail:',res)
@@ -273,7 +268,11 @@ Page({
       deviceId: this.data.device_connected.deviceid
     })
     this.setData({
+      device_connected:[],
       connected: false,
+      Tem_num: "无连接",
+      Hum_num: "无连接",
+      
     })
   },
 
