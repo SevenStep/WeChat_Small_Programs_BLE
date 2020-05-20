@@ -293,7 +293,7 @@ Page({
           if(res.connected == false) {
             wx.showToast({
               title: "连接已断开",
-              duration:2000,
+              duration:1800,
               mask:true,
             }),
             this.setData({
@@ -306,7 +306,7 @@ Page({
             this.startBluetoothDevicesDiscovery()
           }
         })
-
+        
         wx.stopBluetoothDevicesDiscovery();
         console.log("设备已连接，停止查找");
       },
@@ -326,6 +326,7 @@ Page({
         console.log("断开当前连接-震动",res)
       },
     })
+    wx.offBLEConnectionStateChange();
     wx.closeBLEConnection({
       deviceId: this.data.device_connected.deviceid
     })
