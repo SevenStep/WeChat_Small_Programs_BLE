@@ -8,8 +8,9 @@ Page({
    * 初始数据
    */
   data: {
-    version_number: ' v0.1.0',//版本号
-    devices:[],//设备列表
+    version_number: ' v0.1.2',//版本号
+
+    devices:[],//扫描设备列表
     device_connected:[],//当前连接设备信息
     connected:false,//设备连接状态
     Tem_num:"无连接",//温度值
@@ -44,16 +45,14 @@ Page({
    * 打开蓝牙适配器，开始扫描
    */
   openBluetoothAdapter: function () {
-    //刷新设备列表
-    this.setData({
-      devices:[]
-    })
+    
+
     wx.vibrateShort({
       complete: (res) => {
       console.log("点击开始扫描-震动",res)
     },
     })
-    //设备记录清零
+    //刷新设备列表
     
     wx.openBluetoothAdapter({
       success:(res)=>{
@@ -91,6 +90,11 @@ Page({
    * 请在搜索并连接到设备后调用 wx.stopBluetoothDevicesDiscovery 方法停止搜索
    */
   startBluetoothDevicesDiscovery(){
+    if (this.data.connected != true){
+      this.setData({
+        devices:[]
+      })
+    }
     wx.startBluetoothDevicesDiscovery({     
       success: (res)=> {
         console.log("开始查找蓝牙设备",res)
@@ -237,7 +241,11 @@ Page({
       },
     })
     //如果已经存在连接，断开连接
-    if (this.data.connected == true){
+    if (this.data.connected == true) {
+      //如果已经存在连接，且在已连接状态下点击同一设备，无反应。
+      if (e.currentTarget.dataset.deviceid == this.data.device_connected.deviceid) {
+        return
+      }
       wx.closeBLEConnection({
         deviceId: this.data.device_connected.deviceid
       })
@@ -263,6 +271,26 @@ Page({
         })
         console.log("deviceId:",deviceId);
         this.getBLEDeviceServices(deviceId);
+
+        //监听低功耗蓝牙连接状态的改变事件。包括开发者主动连接或断开连接，设备丢失，连接异常断开等等
+        wx.onBLEConnectionStateChange((res) => {
+          if(res.connected == false) {
+            wx.showToast({
+              title: "连接已断开",
+              duration:2000,
+              mask:true,
+            }),
+            this.setData({
+              devices:[],
+              device_connected:[],
+              connected: false,
+              Tem_num: "无连接",
+              Hum_num: "无连接",
+            }),
+            this.startBluetoothDevicesDiscovery()
+          }
+        })
+
         wx.stopBluetoothDevicesDiscovery();
         console.log("设备已连接，停止查找");
       },
