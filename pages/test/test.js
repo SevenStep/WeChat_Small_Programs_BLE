@@ -32,6 +32,22 @@ Page({
     // }) 
   },
 
+    /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    this.stopBluetoothDevicesDiscovery(),
+    this.closeBluetoothAdapter();
+    this.setData({
+      devices:[],
+      device_connected:[],
+      connected: false,
+      Tem_num: "无连接",
+      Hum_num: "无连接",
+    })
+    
+  },
+
   /**
    * 显示函数--developer是否显示
    */
@@ -319,7 +335,7 @@ Page({
       Tem_num: "无连接",
       Hum_num: "无连接",
     })
-  },
+  }
 
 //   /**
 //    * 生命周期函数--监听页面初次渲染完成
@@ -335,12 +351,7 @@ Page({
 
 //   },
 
-//   /**
-//    * 生命周期函数--监听页面隐藏
-//    */
-//   onHide: function () {
 
-//   },
 
 //   /**
 //    * 生命周期函数--监听页面卸载
