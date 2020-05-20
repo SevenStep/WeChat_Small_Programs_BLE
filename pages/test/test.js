@@ -326,7 +326,6 @@ Page({
         console.log("断开当前连接-震动",res)
       },
     })
-    wx.offBLEConnectionStateChange();
     wx.closeBLEConnection({
       deviceId: this.data.device_connected.deviceid
     })
