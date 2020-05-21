@@ -57,17 +57,26 @@ Page({
     })
   },
 
+
+  /**
+   * 振动
+   */
+  vibrateShort() {
+    wx.vibrateShort({
+    complete: (res) => {
+    console.log("点击震动",res)
+    },
+  })
+  },
+  
   /**
    * 打开蓝牙适配器，开始扫描
    */
+  StartScan: function () {
+    this.vibrateShort(),
+    this.openBluetoothAdapter()
+  },
   openBluetoothAdapter: function () {
-    
-
-    wx.vibrateShort({
-      complete: (res) => {
-      console.log("点击开始扫描-震动",res)
-    },
-    })
     //刷新设备列表
     
     wx.openBluetoothAdapter({
@@ -250,11 +259,7 @@ Page({
    * 无需进行搜索操作
    */
   createBLEConnection(e) {
-    wx.vibrateShort({
-      complete: (res) => {
-        console.log("建立连接-震动",res)
-      },
-    })
+    this.vibrateShort()
     //如果已经存在连接，断开连接
     if (this.data.connected == true) {
       //如果已经存在连接，且在已连接状态下点击同一设备，无反应。
@@ -264,6 +269,8 @@ Page({
       wx.closeBLEConnection({
         deviceId: this.data.device_connected.deviceid
       })
+      // this.closeBluetoothAdapter()
+      // console.log('已断开，函数：createBLEConnection')
       this.setData({
         connected: false,
         device_connected:[],
@@ -320,14 +327,11 @@ Page({
    * 断开与低功耗蓝牙设备的连接
    */
   closeBLEConnection() {
-    wx.vibrateShort({
-      complete: (res) => {
-        console.log("断开当前连接-震动",res)
-      },
-    })
+    this.vibrateShort(),
     wx.closeBLEConnection({
       deviceId: this.data.device_connected.deviceid
     })
+    console.log('已断开，函数：closeBLEConnection')
     this.setData({
       device_connected:[],
       connected: false,
