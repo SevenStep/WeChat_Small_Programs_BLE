@@ -112,27 +112,17 @@
   align-items: center;
   justify-content: center;
 }
-.devices-item-odd{
+.devices-item{
   width: 100%;
   height: 20%;
   background-color: ghostwhite;
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-bottom: 2rpx dashed gray;
 }
-.devices-item-odd-hover{
+.devices-item-hover{
   background-color: #81D8CF;
-}
-.devices-item-even{
-  width: 100%;
-  height: 20%;
-  background-color: rgb(201, 211, 205);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.devices-item-even-hover{
-  background-color: rgb(160, 160, 160);
 }
 
 .text-devices{
@@ -200,7 +190,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
 }
 .btn-version{
   background-color: white;

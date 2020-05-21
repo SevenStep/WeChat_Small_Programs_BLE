@@ -8,7 +8,7 @@ Page({
    * 初始数据
    */
   data: {
-    version_number: ' v0.1.3',//版本号
+    version_number: ' v0.1.4',//版本号
 
     devices:[],//扫描设备列表
     device_connected:[],//当前连接设备信息

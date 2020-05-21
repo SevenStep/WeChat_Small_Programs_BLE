@@ -23,13 +23,13 @@
     <scroll-view class="devices-list" scroll-y scroll-with-animation>
       <view
         wx:for="{{devices}}" wx:key="index"
-        class="devices-item-{{index%2==0? 'odd':'even'}}"
+        class="devices-item"
         data="{{item}}"
         data-name="{{item.name||item.localName}}"
         data-deviceId="{{item.deviceId}}"
         data-advertisServiceUUIDs="{{item.advertisServiceUUIDs}}"
         bindtap="createBLEConnection"
-        hover-class="devices-item-{{index%2==0? 'odd':'even'}}-hover">
+        hover-class="devices-item-hover">
         <view class = "text-devices" wx:if = "{{item.deviceId == device_connected.deviceid}}" space="ture" decode="ture">✔ {{item.name||item.localName}}</view>
         <view class = "text-devices" wx:if = "{{item.deviceId != device_connected.deviceid}}" space="ture" decode="ture">📱 {{item.name||item.localName}}</view>
       </view>
