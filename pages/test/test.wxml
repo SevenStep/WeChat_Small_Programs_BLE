@@ -36,7 +36,7 @@
     </scroll-view>
     
     <view class="start">
-      <button class="btn-start" hover-class="btn-start-hover" bindtap="openBluetoothAdapter">
+      <button class="btn-start" hover-class="btn-start-hover" bindtap="StartScan">
         <text class="icon-bluetooth"></text>
         <text class="text-start" space="ture" decode="ture">&nbsp;开始扫描</text>
       </button>

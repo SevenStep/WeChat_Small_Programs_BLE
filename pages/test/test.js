@@ -73,7 +73,6 @@ Page({
     wx.openBluetoothAdapter({
       success:(res)=>{
         console.log("打开蓝牙适配器",res)
-        
         this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
