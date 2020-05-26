@@ -1,4 +1,4 @@
-// pages/test/test.js
+// pages/page_1/page_1.js
 const app = getApp()
 
 Page({
@@ -8,7 +8,7 @@ Page({
    * 初始数据
    */
   data: {
-    version_number: ' v0.1.7',//版本号
+    version_number: ' v0.1.8',//版本号
     system_info:[],//手机系统版本
 
     devices:[],//扫描设备列表
@@ -26,12 +26,13 @@ Page({
    */
   onLoad: function (options) {
     showView: (options.showView == "true" ? true : false)
+    this.SystemInfo()//获取设备系统类型
     // app.watch(this, {
     //   devices: function (newVal) {
     //     console.log(newVal)
     //   }
     // }) 
-    this.SystemInfo()//获取设备系统类型
+    
   },
 
     /**
@@ -39,7 +40,7 @@ Page({
    */
   onHide: function () {
     this.stopBluetoothDevicesDiscovery(),
-    this.closeBluetoothAdapter();
+    this.closeBluetoothAdapter(),
     this.setData({
       devices:[],
       device_connected:[],
@@ -47,7 +48,21 @@ Page({
       Tem_num: "无连接",
       Hum_num: "无连接",
     })
-    
+
+  },
+
+    /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+    return {
+      title: 'BLE温湿度检测',
+      path: '/pages/page_1',
+      // imageUrl: 'pages/Pictures/BLE_SHARE.JPG'
+    }
+
+
   },
 
   /**
@@ -446,10 +461,5 @@ Page({
 
 //   },
 
-//   /**
-//    * 用户点击右上角分享
-//    */
-//   onShareAppMessage: function () {
 
-//   }
 })

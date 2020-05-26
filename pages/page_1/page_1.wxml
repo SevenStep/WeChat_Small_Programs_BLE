@@ -1,4 +1,4 @@
-<!--pages/test/test.wxml-->
+<!--pages/page_1/page_1.wxml-->
 <view class="container">
   <view class="page-body">
 
