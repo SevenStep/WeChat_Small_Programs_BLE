@@ -58,7 +58,7 @@ Page({
 
     return {
       title: 'BLE温湿度检测',
-      path: '/pages/page_1',
+      path: 'pages/page_1/page_1',
       // imageUrl: 'pages/Pictures/BLE_SHARE.JPG'
     }
 
