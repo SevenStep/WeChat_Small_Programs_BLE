@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/page_1/page_1"
+    "pages/page_1/page_1",
+    "pages/main_page/main_page"
   ],
   "window": {
     "backgroundTextStyle": "dark",
