@@ -1,1 +1,302 @@
 /* pages/page_2/page_2.wxss */
+.container{
+  display: flex;
+  flex-direction:column;
+  font-family: Arial, sans-serif;
+}
+
+.page-body{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '设备发现数量'提示设置内容 */
+.devices-status{
+  position: fixed;
+  top: 2.5%;
+  align-items: center;
+  font-size: 26rpx;
+}
+
+/* 温度显示模块设置内容 */
+.tem-container{
+  position: fixed;
+  top: 8.5%;
+  left: 23%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+}
+.icontemperature{
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTk1MjMyOTExMTYzIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQxMTgiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNzA2LjIzIDQ0MS4ydi0xMi43Nmg4N2MxNi4yMSAwIDI5LjM1LTEzLjE0IDI5LjM1LTI5LjM1cy0xMy4xNC0yOS4zNS0yOS4zNS0yOS4zNWgtODdWMzM3LjNoODdjMTYuMjEgMCAyOS4zNS0xMy4xNCAyOS4zNS0yOS4zNXMtMTMuMTQtMjkuMzUtMjkuMzUtMjkuMzVoLTg3di0zMi40M2g4N2MxNi4yMSAwIDI5LjM1LTEzLjE0IDI5LjM1LTI5LjM1cy0xMy4xNC0yOS4zNS0yOS4zNS0yOS4zNWgtODcuOTVDNjk1Ljc5IDg5LjIxIDYxMi44IDEyLjEzIDUxMi4xIDEyLjEzYy0xMDcuMDQgMC0xOTQuMTMgODcuMDgtMTk0LjEzIDE5NC4xMnYyMzQuODhjLTc4LjM1IDYwLjMxLTEyNC42OCAxNTMuNDYtMTI0LjY4IDI1Mi4yMSAwIDE3NS43OCAxNDMuMDEgMzE4Ljc5IDMxOC44IDMxOC43OXMzMTguOC0xNDMuMDEgMzE4LjgtMzE4Ljc5YzAuMDEtOTguNzgtNDYuMzItMTkxLjktMTI0LjY2LTI1Mi4xNHpNNTEyLjEgOTUzLjQyYy0xNDMuNDIgMC0yNjAuMS0xMTYuNjgtMjYwLjEtMjYwLjA5IDAtODUuOTggNDAuODUtMTYzLjcgMTEyLjA4LTIxMy4yNGwxMi41OS04Ljc2VjIwNi4yNWMwLTc0LjY3IDYwLjc1LTEzNS40MiAxMzUuNDMtMTM1LjQyczEzNS40MyA2MC43NSAxMzUuNDMgMTM1LjQydjI2NS4ybDEyLjYxIDguNzVjNzEuMjIgNDkuNDUgMTEyLjA2IDEyNy4xMyAxMTIuMDYgMjEzLjEzIDAgMTQzLjQyLTExNi42OCAyNjAuMDktMjYwLjEgMjYwLjA5eiIgZmlsbD0iIzY2NjY2NiIgcC1pZD0iNDExOSI+PC9wYXRoPjxwYXRoIGQ9Ik01NDEuNDUgNTM2LjU3VjE3Ny4zYzAtMTYuMjEtMTMuMTQtMjkuMzUtMjkuMzUtMjkuMzVzLTI5LjM1IDEzLjE0LTI5LjM1IDI5LjM1djM1OS4yNmMtNzUuNTYgMTMuODctMTMzLjA0IDgwLjA5LTEzMy4wNCAxNTkuNiAwIDg5LjU0IDcyLjg0IDE2Mi4zOCAxNjIuMzkgMTYyLjM4czE2Mi4zOS03Mi44NCAxNjIuMzktMTYyLjM4YzAtNzkuNS01Ny40OC0xNDUuNzItMTMzLjA0LTE1OS41OXpNNTEyLjEgNzk5Ljg1Yy01Ny4xNyAwLTEwMy42OS00Ni41MS0xMDMuNjktMTAzLjY4IDAtNTcuMTcgNDYuNTEtMTAzLjY5IDEwMy42OS0xMDMuNjlTNjE1Ljc4IDYzOSA2MTUuNzggNjk2LjE3YzAgNTcuMTYtNDYuNTEgMTAzLjY4LTEwMy42OCAxMDMuNjh6IiBmaWxsPSIjNjY2NjY2IiBwLWlkPSI0MTIwIj48L3BhdGg+PC9zdmc+);
+  background-size: cover;
+}
+.icon-temperature{
+  height: 48rpx;
+  width: 48rpx;
+}
+
+/* 湿度显示模块设置内容 */
+.hum-container{
+  position: fixed;
+  top: 15.5%;
+  left: 23%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+}
+.iconhumidity{
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTk1MjMyOTI0NzkxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQyNTMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNzYwLjAzIDI1MC40NmMtOS45Mi05Ljk0LTIzLjAzLTE1LjM0LTM3LjY5LTE1LjQyLTQuOTIgMC4wNS05Ljc2IDAuNzktMTQuNCAyLjE3bC0xMi43MiA3LjIxYy0yLjk0IDEuODYtMTUuOTEgMTEuMjktMTguNDMgMTMuNjgtNTQuMTcgNTEuMzYtMTY1LjQ1IDE3Mi42OC0xODUuODkgMzE4LjczLTE5Ljc1IDE0MS4xMSA4MC42NSAyNzUuNzggMjIzLjA0IDI4MC43OCAxMzMuMjYgNC43IDI0My4xNi0xMDIuMzUgMjQzLjE2LTIzNC41NyAwLTE3MS4zNS0xMzcuMy0zMTcuMjItMTk3LjA3LTM3Mi41OHogbS0zNy42NyA1NDEuNjFjLTkzLjIxIDAtMTY5LjAzLTc1LjgyLTE2OS4wMy0xNjkuMDMgMC0xMzAuNTkgMTAyLjMzLTI1MC42NCAxNTQuMi0zMDMuMDhsMTYuMDMtMTMuNTlDNzcyLjQ5IDM1My40IDg5MS40IDQ4Mi4yNSA4OTEuNCA2MjMuMDRjMCA5My4yMS03NS44MyAxNjkuMDMtMTY5LjA0IDE2OS4wM3oiIGZpbGw9IiM2NjY2NjYiIHAtaWQ9IjQyNTQiPjwvcGF0aD48cGF0aCBkPSJNNTMzLjM4IDgyNi40Yy00My4zOCAzMi4yMS05NC44NiA0OS4yMy0xNDguODUgNDkuMjMtMTM4LjggMC0yNTEuNzMtMTE0LjE1LTI1MS43My0yNTQuNDQgMC0yMDAuMSAxNjEuMzctMzgxLjg4IDIzMS41NS00NTEuNDJsMjEuMTctMTguODJjMjguNTcgMjYuODggODEuMjggODAuMTUgMTMwLjk5IDE1MCAxMC41MyAxNC43NyAzMS4wMiAxOC4yMiA0NS44MSA3LjcyIDE0Ljc5LTEwLjUyIDE4LjI0LTMxLjAzIDcuNzItNDUuODEtNTQuNjItNzYuNzMtMTEyLjYxLTEzNC42OC0xNDAuNzctMTYwLjg1LTExLjU0LTEyLjI5LTI3LjEtMTguNzktNDQuNjMtMTkuMDhhNjAuMyA2MC4zIDAgMCAwLTIzLjk4IDUuMjVsLTEwLjE3IDYuNDktMTcuMDcgMTMuNkMyNTIuOTggMTg0LjE0IDY3LjEgMzg0Ljk5IDY3LjEgNjIxLjE4YzAgMTc2LjUzIDE0Mi40IDMyMC4xNCAzMTcuNDIgMzIwLjE0IDY4LjIxIDAgMTMzLjIzLTIxLjUgMTg4LjAxLTYyLjE3IDE0LjU2LTEwLjgyIDE3LjYxLTMxLjM5IDYuOC00NS45Ni0xMC44My0xNC41Ny0zMS40Mi0xNy42LTQ1Ljk1LTYuNzl6TTc2Mi4wNiA2NjcuNTFjLTI4LjMzLTAuMTUtNDguNTktNy40Mi02MC4yMi0yMS42LTE3LjU0LTIxLjM1LTE1LjMyLTU3LjM2LTEyLjk5LTY5LjQzIDMuNTMtMTcuNzItNy45Mi0zNC45OC0yNS42NC0zOC42LTE3Ljc3LTMuNjYtMzUuMTMgNy44My0zOC43NiAyNS42MS0xLjUzIDcuNDYtMTMuNzYgNzQuMzggMjYuMjIgMTIzLjYyIDI0LjYgMzAuMzIgNjEuOTYgNDUuODMgMTExLjAzIDQ2LjFoMC4xOGMxOC4wNiAwIDMyLjc1LTE0LjU4IDMyLjg1LTMyLjY3IDAuMS0xOC4xNC0xNC41My0zMi45My0zMi42Ny0zMy4wM3oiIGZpbGw9IiM2NjY2NjYiIHAtaWQ9IjQyNTUiPjwvcGF0aD48cGF0aCBkPSJNMjQ0LjA1IDUxOS41N2MtMTcuMTUtNS45LTM1Ljg2IDMuMjQtNDEuNzMgMjAuMzktMS42IDQuNjUtMzguNSAxMTQuOTQgMTkuNDcgMTk4LjI1IDM3LjQ0IDUzLjgxIDEwMy41IDgyLjIyIDE5Ni4zNiA4NC40NSAwLjI3IDAuMDEgMC41MyAwLjAxIDAuOCAwLjAxIDE3Ljc4IDAgMzIuNC0xNC4xOSAzMi44My0zMi4wNiAwLjQ0LTE4LjEzLTEzLjkxLTMzLjE5LTMyLjA1LTMzLjYzLTcwLjU5LTEuNy0xMTguOTktMjAuNTYtMTQzLjg0LTU2LjA1LTM5LjAxLTU1LjY5LTExLjczLTEzOC43OS0xMS40Mi0xMzkuNzIgNS44My0xNy4xMy0zLjI5LTM1Ljc2LTIwLjQyLTQxLjY0eiIgZmlsbD0iIzY2NjY2NiIgcC1pZD0iNDI1NiI+PC9wYXRoPjwvc3ZnPg==);
+  background-size: cover;
+}
+.icon-humidity{
+  height: 48rpx;
+  width: 48rpx;
+}
+
+/* 电压显示模块设置内容 */
+.volt-container{
+  position: fixed;
+  top: 22.5%;
+  left: 23%;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+}
+.iconvoltage{
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTk1MjMyODk2MzkzIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjM5ODIiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNDEwLjM2IDk1Ny4xM2MtMTUuNDEgMC0zMS4wNy0zLjgxLTQ1Ljc2LTExLjY3LTM5LjkyLTIxLjMyLTU5LjA2LTY1LjA2LTQ3LjY0LTEwOC44M2w1My4yLTIwMy45Ni03Ny45Ni0zMS4xN2MtMTAuMzUtNC4xNS0xOC4yMi04Ljg3LTI0LjgzLTE0Ljg2LTQwLjc0LTM2LjgyLTQ0Ljc2LTk3LjA0LTkuMTMtMTM3LjA5TDU3Mi40NyA5Ni4wMmMyNi42OS0zMC4wMSA2OC40Mi0zNy40MyAxMDMuODMtMTguNTMgMzUuNDIgMTguOTQgNTIuNCA1Ny43OCA0Mi4yNSA5Ni42NGwtNjQuNTIgMjQ3LjIgNzguMDMgMzEuMjJjMTAuMjkgNC4xIDE4LjIxIDguODMgMjQuODggMTQuOTIgNDAuNjEgMzYuODIgNDQuNiA5NyA5LjA1IDEzN0w0ODEuNCA5MjQuNmMtMTguOTMgMjEuMzItNDQuNjMgMzIuNTMtNzEuMDQgMzIuNTN6IG0yMDIuODMtODI0LjkxTDI5OC45NiA0ODUuNzVjLTEzLjM5IDE1LjA2LTE2LjIgNDEuMzYgNC45NyA2MC40OCAxLjY5IDEuNTMgNC40NyAzLjA1IDguNTQgNC43bDEyMi41NSA0OC45OS02NS4zMyAyNTAuNDZjLTYuMDggMjMuMzEgNi42NCAzOS41NyAyMC41OCA0Ny4wMiAxMy44OCA3LjQgMzQuNDQgOC45NiA1MC40LTkuMDFsMjg0LjYtMzIwLjE1YzEzLjM2LTE1LjAxIDE2LjE2LTQxLjMxLTQuOTUtNjAuNDUtMS42OC0xLjUzLTQuNTEtMy4wNy04LjQ2LTQuNjVsLTEyMi43LTQ5LjA4IDc2LjY3LTI5My43MWM0LjUxLTE3LjI3LTQuOTEtMjkuMzEtMTUuMjMtMzQuODMtMTAuMzItNS41LTI1LjU0LTYuNjQtMzcuNDEgNi43eiIgZmlsbD0iIzY2NjY2NiIgcC1pZD0iMzk4MyI+PC9wYXRoPjwvc3ZnPg==);
+  background-size: cover;
+}
+.icon-voltage{
+  height: 48rpx;
+  width: 48rpx;
+}
+
+.text-num{
+  font-size: 44rpx;
+  color: black;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+  
+}
+
+.setparam-data{
+  position: fixed;
+  top: 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.text-setparam-data{
+  font-size: 30rpx;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* 精度选择器设置内容 */
+.selector_precision{
+  position: fixed;
+  top: 38%;
+  left: 15%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+.selector_frequency{
+  position: fixed;
+  top: 38%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+.selector_duration{
+  position: fixed;
+  top: 38%;
+  right: 15%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+.picker{
+  padding: 13px;
+  background-color: #FFFFFF;
+}
+
+/* '确认参数开始测试'按钮的设置内容 */
+.setdata{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-setdata{
+  height: 7.5%;
+  width: 75%;
+  position: fixed;
+  bottom: 40%;
+  right: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-setdata::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-setdata-hover{
+  background-color: burlywood;
+}
+.text-setdata{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.realtime-data{
+  position: fixed;
+  bottom: 33.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.text-realtime-data{
+  font-size: 30rpx;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '获取当前温湿度值'按钮的设置内容 */
+.getdata{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-getdata{
+  height: 7.5%;
+  width: 75%;
+  position: fixed;
+  bottom: 22.5%;
+  right: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-getdata::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-getdata-hover{
+  background-color: burlywood;
+}
+.text-getdata{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '获取当前设备电压'按钮的设置内容 */
+.getvolt{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-getvolt{
+  height: 7.5%;
+  width: 75%;
+  position: fixed;
+  bottom: 12.5%;
+  right: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-getvolt::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-getvolt-hover{
+  background-color: burlywood;
+}
+.text-getvolt{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.version{
+  position: fixed;
+  bottom: 5%;
+  height: 26rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-version{
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+}
+.btn-version::after {
+  border: 0;
+}
+.text-version{
+  font-size: 24rpx;
+  color: gray;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  font-family: "YaHei";
+}
+
+.developer{
+  position: fixed;
+  bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+}
+.text-developer{
+  font-size: 20rpx;
+  color: gray;
+  align-items: center;
+  font-family: "YaHei";
+}

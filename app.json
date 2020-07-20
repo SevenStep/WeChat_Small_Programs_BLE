@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/main_page/main_page",
-    "pages/page_1/page_1",
     "pages/page_information/page_information",
     "pages/page_guide/page_guide"
   ],

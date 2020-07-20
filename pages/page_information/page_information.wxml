@@ -1,2 +1,84 @@
 <!--pages/page_2/page_2.wxml-->
-<text>pages/page_2/page_2.wxml</text>
+<view class="container">
+  <view class="page-body">
+
+    <view class="devices-status" >
+      <text space="ture" decode="ture">已连接设备：{{device_connected.name}}</text>
+    </view>
+
+    <view class="tem-container">
+      <text class="icontemperature icon-temperature"></text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：26.00℃{{Tem_num}}</text>
+    </view>
+
+    <view class="hum-container">
+      <text class="iconhumidity icon-humidity" ></text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：75.00%{{Hum_num}}</text>
+    </view>
+
+    <view class="volt-container">
+      <text class="iconvoltage icon-voltage" ></text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;电压值：&nbsp;&nbsp;3.30V{{Volt_num}}</text>
+    </view>
+
+    <view class="setparam-data">
+      <text class="text-setparam-data" space="ture" decode="ture">—————设置参数获取数据—————</text>
+    </view>
+
+    <view class="selector_precision">
+      <view class="section__title">精度选择</view>
+      <picker bindchange="bindPickerChange" value="{{precision_index}}" range="{{precision_array}}">
+        <view class="picker">{{precision_array[precision_index]}}</view>
+      </picker>
+    </view>
+
+    <view class="selector_frequency">
+      <view class="section__title">频率选择</view>
+      <picker bindchange="bindPickerChange" value="{{frequency_index}}" range="{{frequency_array}}">
+        <view class="picker">{{frequency_array[frequency_index]}}</view>
+      </picker>
+    </view>
+
+    <view class="selector_duration">
+      <view class="section__title">时长选择</view>
+      <picker bindchange="bindPickerChange" value="{{duration_index}}" range="{{duration_array}}">
+        <view class="picker">{{duration_array[duration_index]}}</view>
+      </picker>
+    </view>
+
+    <view class="setdata">
+      <button class="btn-setdata" hover-class="btn-setdata-hover" bindtap="">
+        <text class="text-setdata" space="ture" decode="ture">确认参数开始测试</text>
+        
+      </button>
+    </view>
+
+    <view class="realtime-data">
+      <text class="text-realtime-data" space="ture" decode="ture">——————获取实时数据——————</text>
+    </view>
+
+    <view class="getdata">
+      <button class="btn-getdata" hover-class="btn-getdata-hover"  bindtap="">
+        <text class="text-getdata" space="ture" decode="ture">获取当前温湿度值</text>
+      </button>
+    </view>
+
+    <view class="getvolt">
+      <button class="btn-getvolt" hover-class="btn-getvolt-hover"  bindtap="">
+        <text class="text-getvolt" space="ture" decode="ture">获取当前设备电压</text>
+      </button>
+    </view>
+
+    <view class="version">
+      <button class="btn-version" hover-class="none" bindtap="onChangeShowState">
+        <text class="text-version" space="ture" decode="ture">SMSA@NUAA&nbsp;{{version_number}}</text>
+      </button>
+    </view>
+    
+    <view class='developer' wx:if="{{showView !=''}}">
+      <text class="text-developer" space="ture" decode="ture">Developer&nbsp;@WangYue</text>
+    </view>
+
+
+  </view>
+</view>

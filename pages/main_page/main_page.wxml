@@ -2,8 +2,6 @@
 <view class="container">
   <view class="page-body">
 
-    <view class="devices-status"></view>
-
     <view class="devices-finder" >
       <text wx:if = "{{item.deviceId == device_connected.deviceid}}" space="ture" decode="ture">已发现&nbsp;{{devices.length}}&nbsp;台设备,请选择可用设备连接</text>
       <text wx:if = "{{item.deviceId != device_connected.deviceid}}" space="ture" decode="ture">已连接设备：{{device_connected.name}}</text>
