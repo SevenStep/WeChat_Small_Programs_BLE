@@ -8,17 +8,17 @@
 
     <view class="tem-container">
       <text class="icontemperature icon-temperature"></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：26.00℃{{Tem_num}}</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;温度值：{{Tem_num}}</text>
     </view>
 
     <view class="hum-container">
       <text class="iconhumidity icon-humidity" ></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：75.00%{{Hum_num}}</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;湿度值：{{Hum_num}}</text>
     </view>
 
     <view class="volt-container">
       <text class="iconvoltage icon-voltage" ></text>
-      <text class="text-num" space="ture" decode="ture">&nbsp;电压值：&nbsp;&nbsp;3.30V{{Volt_num}}</text>
+      <text class="text-num" space="ture" decode="ture">&nbsp;电压值：{{Volt_num}}</text>
     </view>
 
     <view class="setparam-data">
@@ -26,22 +26,22 @@
     </view>
 
     <view class="selector_precision">
-      <view class="section__title">精度选择</view>
-      <picker bindchange="bindPickerChange" value="{{precision_index}}" range="{{precision_array}}">
+      <view class="selector_title">精度选择</view>
+      <picker bindchange="precisionPickerChange" id="precision" value="{{precision_index}}" range="{{precision_array}}">
         <view class="picker">{{precision_array[precision_index]}}</view>
       </picker>
     </view>
 
     <view class="selector_frequency">
-      <view class="section__title">频率选择</view>
-      <picker bindchange="bindPickerChange" value="{{frequency_index}}" range="{{frequency_array}}">
+      <view class="selector_title">频率选择</view>
+      <picker bindchange="frequencyPickerChange" id="frequency" value="{{frequency_index}}" range="{{frequency_array}}">
         <view class="picker">{{frequency_array[frequency_index]}}</view>
       </picker>
     </view>
 
     <view class="selector_duration">
-      <view class="section__title">时长选择</view>
-      <picker bindchange="bindPickerChange" value="{{duration_index}}" range="{{duration_array}}">
+      <view class="selector_title">时长选择</view>
+      <picker bindchange="durationPickerChange" id="duration" value="{{duration_index}}" range="{{duration_array}}">
         <view class="picker">{{duration_array[duration_index]}}</view>
       </picker>
     </view>
@@ -49,7 +49,7 @@
     <view class="setdata">
       <button class="btn-setdata" hover-class="btn-setdata-hover" bindtap="">
         <text class="text-setdata" space="ture" decode="ture">确认参数开始测试</text>
-        
+
       </button>
     </view>
 

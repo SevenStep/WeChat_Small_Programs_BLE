@@ -16,7 +16,6 @@
 .devices-finder{
   position: fixed;
   top: 2.5%;
-  left: 10%;
   font-size: 26rpx;
 }
 
@@ -26,7 +25,7 @@
   top: 7.5%;
   left:5%;
   width: 90%;
-  height: 55%;
+  height: 57%;
   background-color: whitesmoke;
   display: flex;
   flex-direction: row;

@@ -103,10 +103,11 @@
   justify-content: center; 
 }
 
-/* 精度选择器设置内容 */
+/* 选择器设置内容 */
 .selector_precision{
   position: fixed;
-  top: 38%;
+  height: 15%;
+  top: 34.4%;
   left: 15%;
   display: flex;
   flex-direction:column;
@@ -115,7 +116,8 @@
 }
 .selector_frequency{
   position: fixed;
-  top: 38%;
+  height: 15%;
+  top: 34.4%;
   display: flex;
   flex-direction:column;
   align-items: center;
@@ -123,16 +125,32 @@
 }
 .selector_duration{
   position: fixed;
-  top: 38%;
+  height: 15%;
+  top: 34.4%;
   right: 15%;
   display: flex;
   flex-direction:column;
   align-items: center;
   justify-content: center; 
 }
+.selector_title{
+  font-size: 30rpx;
+}
 .picker{
-  padding: 13px;
-  background-color: #FFFFFF;
+  margin-top: 20rpx;
+  height: 85rpx;
+  width: 120rpx;
+  font-size: 30rpx;
+  color: black;
+  background-color: whitesmoke;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1rpx;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
 }
 
 /* '确认参数开始测试'按钮的设置内容 */
