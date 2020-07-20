@@ -1,1 +1,197 @@
 /* pages/main_page/main_page.wxss */
+
+.container{
+  display: flex;
+  flex-direction:column;
+  font-family: Arial, sans-serif;
+}
+.page-body{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '设备发现数量'提示设置内容 */
+.devices-finder{
+  position: fixed;
+  top: 2.5%;
+  left: 10%;
+  font-size: 26rpx;
+}
+
+/* '发现设备’列表设置内容 */
+.devices-list{
+  position: fixed;
+  top: 7.5%;
+  left:5%;
+  width: 90%;
+  height: 55%;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.devices-item{
+  width: 100%;
+  height: 17.5%;
+  background-color: ghostwhite;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2rpx dashed gray;
+}
+.devices-item-hover{
+  background-color: #81D8CF;
+}
+.text-devices{
+  position: absolute;
+  left: 3%;
+  font-size: 48rpx;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+/* '开始扫描'按钮的设置内容 */
+.scan{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-scan{
+  height: 7.5%;
+  width: 35%;
+  position: fixed;
+  bottom: 25%;
+  left: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-scan::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-scan-hover{
+  background-color: burlywood;
+}
+.text-scan{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '断开连接'按钮的设置内容 */
+.break{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-break{
+  height: 7.5%;
+  width: 35%;
+  position: fixed;
+  bottom: 25%;
+  right: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-break::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-break-hover{
+  background-color: burlywood;
+}
+.text-break{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '信息获取'按钮的设置内容 */
+.information{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-information{
+  height: 7.5%;
+  width: 75%;
+  position: fixed;
+  bottom: 15%;
+  right: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-information::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-information-hover{
+  background-color: burlywood;
+}
+.text-information{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+/* '使用说明'按钮的设置内容 */
+.guide{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-guide{
+  height: 7.5%;
+  width: 75%;
+  position: fixed;
+  bottom: 5%;
+  right: 12.5%;
+  background-color: rgb(245, 168, 75);
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-guide::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
+.btn-guide-hover{
+  background-color: burlywood;
+}
+.text-guide{
+  font-size: 36rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}

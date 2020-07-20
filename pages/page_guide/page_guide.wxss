@@ -1,0 +1,59 @@
+/* pages/page_3/page_3.wxss */
+
+.container{
+  display: flex;
+  flex-direction:column;
+  font-family: Arial, sans-serif;
+}
+.page-body{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+}
+
+.version{
+  position: fixed;
+  bottom: 5%;
+  height: 26rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-version{
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+}
+.btn-version::after {
+  border: 0;
+}
+.text-version{
+  font-size: 24rpx;
+  color: gray;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  font-family: "YaHei";
+}
+
+
+.developer{
+  position: fixed;
+  bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+}
+.text-developer{
+  font-size: 20rpx;
+  color: gray;
+  align-items: center;
+  font-family: "YaHei";
+}

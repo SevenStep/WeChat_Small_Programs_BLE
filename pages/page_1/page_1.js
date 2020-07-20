@@ -55,14 +55,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
     return {
       title: 'BLE温湿度检测',
-      path: 'pages/page_1/page_1',
-      // imageUrl: 'pages/Pictures/BLE_SHARE.JPG'
+      path: '../main_page/main_page',
     }
-
-
   },
 
   /**
@@ -360,7 +356,7 @@ Page({
   },
 
 
-      /**
+  /**
    * 停止搜寻附近的蓝牙外围设备
    * 若已经找到需要的蓝牙设备并不需要继续搜索时
    * 建议调用该接口停止蓝牙搜索

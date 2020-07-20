@@ -1,7 +1,52 @@
 <!--pages/main_page/main_page.wxml-->
 <view class="container">
   <view class="page-body">
-  
+
+    <view class="devices-status"></view>
+
+    <view class="devices-finder" >
+      <text wx:if = "{{item.deviceId == device_connected.deviceid}}" space="ture" decode="ture">已发现&nbsp;{{devices.length}}&nbsp;台设备,请选择可用设备连接</text>
+      <text wx:if = "{{item.deviceId != device_connected.deviceid}}" space="ture" decode="ture">已连接设备：{{device_connected.name}}</text>
+    </view>
+
+    <scroll-view class="devices-list" scroll-y scroll-with-animation>
+      <view
+        wx:for="{{devices}}" wx:key="index"
+        class="devices-item"
+        data="{{item}}"
+        data-name="{{item.name||item.localName}}"
+        data-deviceId="{{item.deviceId}}"
+        data-advertisServiceUUIDs="{{item.advertisServiceUUIDs}}"
+        bindtap="createBLEConnection"
+        hover-class="devices-item-hover">
+        <view class = "text-devices" wx:if = "{{item.deviceId == device_connected.deviceid}}" space="ture" decode="ture">✔ {{item.name||item.localName}}</view>
+        <view class = "text-devices" wx:if = "{{item.deviceId != device_connected.deviceid}}" space="ture" decode="ture">📱 {{item.name||item.localName}}</view>
+      </view>
+    </scroll-view>
+
+    <view class="scan">
+      <button class="btn-scan" hover-class="btn-scan-hover" bindtap="StartScan">
+        <text class="text-scan" space="ture" decode="ture">设备扫描</text>
+      </button>
+    </view>
+
+    <view class="break">
+      <button class="btn-break" hover-class="btn-break-hover" bindtap="closeBLEConnection">
+        <text class="text-break" space="ture" decode="ture">断开连接</text>
+      </button>
+    </view>
+
+    <view class="information">
+      <button class="btn-information" hover-class="btn-information-hover" id = 'page_information' bindtap="TurnToPage">
+        <text class="text-information" space="ture" decode="ture">信息获取</text>
+      </button>
+    </view>
+
+    <view class="guide">
+      <button class="btn-guide" hover-class="btn-guide-hover" id = 'page_guide' bindtap="TurnToPage">
+        <text class="text-guide" space="ture" decode="ture">使用说明</text>
+      </button>
+    </view>
 
   </view>
 </view>

@@ -1,0 +1,17 @@
+<!--pages/page_3/page_3.wxml-->
+<view class="container">
+  <view class="page-body">
+
+    <view class="version">
+      <button class="btn-version" hover-class="none" bindtap="onChangeShowState">
+        <text class="text-version" space="ture" decode="ture">SMSA@NUAA&nbsp;{{version_number}}</text>
+      </button>
+    </view>
+    
+    <view class='developer' wx:if="{{showView !=''}}">
+      <text class="text-developer" space="ture" decode="ture">Developer&nbsp;@WangYue</text>
+    </view>
+    
+    
+  </view>
+</view>
