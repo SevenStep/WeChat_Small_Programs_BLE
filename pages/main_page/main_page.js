@@ -110,19 +110,19 @@ Page({
     this.vibrateShort()
     let id_str = event.target.id  //点击了按钮1或者按钮2 
     let url = "../" + id_str+'/'+id_str //得到页面url 
-    // if((id_str == 'page_information') && (this.data.connected == false)) {
-    //   wx.showModal({
-    //     title: "注意",
-    //     content: '请连接相应设备后查看',
-    //     showCancel: false,
-    //     success: function (res) {
-    //       if (res.confirm) {//这里是点击了确定以后
-    //         console.log('确定')
-    //       } 
-    //     }
-    //   })
-    //   return
-    // }
+    if((id_str == 'page_information') && (this.data.connected == false)) {
+      wx.showModal({
+        title: "注意",
+        content: '请连接相应设备后查看',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {//这里是点击了确定以后
+            console.log('确定')
+          } 
+        }
+      })
+      return
+    }
     wx.navigateTo({
       url: url,
       success: (res)=> {
