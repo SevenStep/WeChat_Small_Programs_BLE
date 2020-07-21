@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    version_number: ' v0.2.0',//版本号
+    version_number: ' v0.2.1',//版本号
     showView: false,//developer显示状态
 
   },

@@ -107,7 +107,7 @@
 .selector_precision{
   position: fixed;
   height: 15%;
-  top: 34.4%;
+  top: 34%;
   left: 15%;
   display: flex;
   flex-direction:column;
@@ -117,7 +117,7 @@
 .selector_frequency{
   position: fixed;
   height: 15%;
-  top: 34.4%;
+  top: 34%;
   display: flex;
   flex-direction:column;
   align-items: center;
@@ -126,7 +126,7 @@
 .selector_duration{
   position: fixed;
   height: 15%;
-  top: 34.4%;
+  top: 34%;
   right: 15%;
   display: flex;
   flex-direction:column;
@@ -164,7 +164,7 @@
   height: 7.5%;
   width: 75%;
   position: fixed;
-  bottom: 40%;
+  bottom: 42%;
   right: 12.5%;
   background-color: rgb(245, 168, 75);
   border-radius: 100rpx;
@@ -180,6 +180,23 @@
 .btn-setdata-hover{
   background-color: burlywood;
 }
+.btn-setdata-wait{
+  height: 7.5%;
+  width: 75%;
+  position: fixed;
+  bottom: 42%;
+  right: 12.5%;
+  background-color: burlywood;
+  border-radius: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-setdata-wait::after{/*用border::after来删除button的默认边宽*/
+  border-radius: 100rpx;
+  border: 0;
+}
 .text-setdata{
   font-size: 36rpx;
   color: white;
@@ -188,9 +205,24 @@
   justify-content: center; 
 }
 
+.setdata-time{
+  position: fixed;
+  bottom: 39.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.text-data-time{
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
 .realtime-data{
   position: fixed;
-  bottom: 33.5%;
+  bottom: 35.5%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -215,7 +247,7 @@
   height: 7.5%;
   width: 75%;
   position: fixed;
-  bottom: 22.5%;
+  bottom: 24.5%;
   right: 12.5%;
   background-color: rgb(245, 168, 75);
   border-radius: 100rpx;
@@ -238,6 +270,16 @@
   align-items: center;
   justify-content: center; 
 }
+
+.getdata-time{
+  position: fixed;
+  bottom: 22%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* '获取当前设备电压'按钮的设置内容 */
 .getvolt{
@@ -272,6 +314,15 @@
   display: flex;
   align-items: center;
   justify-content: center; 
+}
+
+.getvolt-time{
+  position: fixed;
+  bottom: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .version{

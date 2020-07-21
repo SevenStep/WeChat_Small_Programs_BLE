@@ -47,10 +47,17 @@
     </view>
 
     <view class="setdata">
-      <button class="btn-setdata" hover-class="btn-setdata-hover" id="setdata" bindtap="setBLEDeviceCharacteristicsValue">
+      <button wx:if="{{setdata_btn_disabled == false}}" class="btn-setdata" hover-class="btn-setdata-hover" id="setdata" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-setdata" space="ture" decode="ture">确认参数开始测试</text>
-
       </button>
+      <view wx:if="{{setdata_btn_disabled != false}}" class="btn-setdata-wait" disabled="!{{setdata_btn_disabled}}">
+        <text class="text-setdata" space="ture" decode="ture">{{wait_time}}秒后获得数据</text>
+      </view>
+    </view>
+
+
+    <view class="setdata-time">
+      <text class="text-data-time" space="ture" decode="ture">数据开始测试时间：{{setdata_time}}</text>
     </view>
 
     <view class="realtime-data">
@@ -63,10 +70,18 @@
       </button>
     </view>
 
+    <view class="getdata-time">
+      <text class="text-data-time" space="ture" decode="ture">当前数据获取时间：{{getdata_time}}</text>
+    </view>
+
     <view class="getvolt">
       <button class="btn-getvolt" hover-class="btn-getvolt-hover" id="getvolt" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-getvolt" space="ture" decode="ture">获取当前设备电压</text>
       </button>
+    </view>
+
+    <view class="getvolt-time">
+      <text class="text-data-time" space="ture" decode="ture">当前数据获取时间：{{getvolt_time}}</text>
     </view>
 
     <view class="version">

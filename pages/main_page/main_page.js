@@ -14,7 +14,6 @@ Page({
     showView: false,//developer显示状态
   },
 
-
   /**
    * 振动
    */
@@ -257,8 +256,6 @@ Page({
       this.setData({
         connected: false,
         device_connected:[],
-        Tem_num: "获取中",
-        Hum_num: "获取中",
       })
     }
     let device_data = e.currentTarget.dataset//获取本次事件data
@@ -307,8 +304,6 @@ Page({
               devices:[],
               device_connected:[],
               connected: false,
-              Tem_num: "无连接",
-              Hum_num: "无连接",
             }),
             that.openBluetoothAdapter()
           }
@@ -356,8 +351,6 @@ Page({
       this.setData({
         device_connected:[],
         connected: false,
-        Tem_num: "无连接",
-        Hum_num: "无连接",
       })
       return
     }
@@ -368,8 +361,6 @@ Page({
     this.setData({
       device_connected:[],
       connected: false,
-      Tem_num: "无连接",
-      Hum_num: "无连接",
     })
   },
 

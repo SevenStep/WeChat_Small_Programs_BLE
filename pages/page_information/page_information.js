@@ -1,5 +1,7 @@
 // pages/page_information/page_information.js
 
+let util = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -21,24 +23,29 @@ Page({
   
     duration_array: ['1秒','5秒','10秒','20秒','30秒','60秒'],
     duration_index: 0, 
-    objectduration_array: [{id: 0x00, name: '1秒'},
-                           {id: 0x01, name: '5秒'},
-                           {id: 0x02, name: '10秒'},
-                           {id: 0x03, name: '20秒'},
-                           {id: 0x04, name: '30秒'},
-                           {id: 0x05, name: '60秒'},],
+    objectduration_array: [{id: 0x00, name: '1秒', duration: 1},
+                           {id: 0x01, name: '5秒', duration: 5},
+                           {id: 0x02, name: '10秒', duration: 10},
+                           {id: 0x03, name: '20秒', duration: 20},
+                           {id: 0x04, name: '30秒', duration: 30},
+                           {id: 0x05, name: '60秒', duration: 60}],
               
-    version_number: ' v0.2.0',//版本号
+    version_number: ' v0.2.1',//版本号
     showView: false,//developer显示状态
 
     Tem_num: "未获取",
     Hum_num: "未获取",
     Volt_num: "未获取",
-    
     device_connected: [],
     serviceId: [],
     Write_characteristicId: [],//写入指令
     Notify_characteristicId: [],//Notify特征值
+    setdata_time: '尚未获取',
+    getdata_time: '尚未获取',
+    getvolt_time: '尚未获取',
+
+    setdata_btn_disabled: false,
+    wait_time: 0,
   },
 
   /**
@@ -76,6 +83,18 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.setData({
+      Tem_num: "未获取",
+      Hum_num: "未获取",
+      Volt_num: "未获取",
+      device_connected: [],
+      serviceId: [],
+      Write_characteristicId: [],//写入指令
+      Notify_characteristicId: [],//Notify特征值
+      setdata_time: [],
+      getdata_time: [],
+      getvolt_time: [],
+    })
 
   },
 
@@ -124,6 +143,55 @@ Page({
     console.log("读取已连接设备：",prevPage.data.device_connected)
     this.setData({
       device_connected: prevPage.data.device_connected
+    })
+    //监听低功耗蓝牙连接状态的改变事件。包括开发者主动连接或断开连接，设备丢失，连接异常断开等等
+    wx.onBLEConnectionStateChange((res) => {
+      let that = this
+      if(res.connected == false) {
+        /**
+         * 安卓系统【微信小程序】wx.onBluetoothDeviceFound 安卓机第一次可以连接蓝牙设备，第二次搜索不到问题
+         * 问题原因：
+         * wx.onBluetoothDeviceFound 接口返回的是新的蓝牙设备，之前连接过的在部分安卓机型上，不算做新的蓝牙设备，故重新连接搜索不到
+         * 解决办法:
+         * 操作完成后要及时关闭连接，同时也要关闭蓝牙设备，否则安卓下再次进入会搜索不到设备除非关闭小程序进程再进才可以，iOS不受影响。
+         */
+        if (this.data.system_info != "iOS") {
+          wx.closeBLEConnection({
+            deviceId: this.data.device_connected.deviceid
+          })
+          console.log('连接已断开，安卓特制')
+          wx.closeBluetoothAdapter({
+            complete: (res) => {
+              console.log("安卓特制：关闭蓝牙模块")
+            },
+          })
+        }
+        wx.showToast({
+          title: "连接已断开",
+          duration:1000,
+          mask:true,
+        }),
+        this.setData({
+          Tem_num: "未获取",
+          Hum_num: "未获取",
+          Volt_num: "未获取",
+          device_connected: [],
+          serviceId: [],
+          Write_characteristicId: [],//写入指令
+          Notify_characteristicId: [],//Notify特征值
+          setdata_time: [],
+          getdata_time: [],
+          getvolt_time: [],
+        })
+        let pages = getCurrentPages()
+        let prevPage = pages[pages.length - 2]
+        prevPage.setData({
+          devices:[],
+          device_connected:[],
+          connected: false,
+        })
+        prevPage.openBluetoothAdapter()
+      }
     })
   },
 
@@ -241,18 +309,18 @@ Page({
     wx.onBLECharacteristicValueChange( (res) => {
       //采用uint8是因为尽管是16位数据，但是蓝牙传递队列已经把数据转化成8位了，这个是蓝牙本身的库函数决定的。
       let r_data = new Uint8Array(res.value)//received_data接收的数据
-      console.log(`Notify特征值${res.characteristicId} 已改变：`,r_data)
+      console.log(`Notify特征值${res.characteristicId} 已改变：`,r_data[0],r_data[1],r_data[2],r_data[3])
 
       if (r_data[2] == 0x00 && r_data[3] == 0x00){
-        let Volt = (r_data[1]+(r_data[0]/256)).toFixed(2)
+        let Volt = (r_data[1]+(r_data[0]/255)).toFixed(2)
         this.setData({
           Volt_num: `${Volt}V`,
         })
       }
       
       if (r_data[2] != 0x00 && r_data[3] != 0x00){
-        let Tem = ((r_data[1]*256+r_data[0]) * 175 / (Math.pow(2,16)-1) - 45).toFixed(2)
-        let Hum = ((r_data[3]*256+r_data[2]) * 100 / (Math.pow(2,16)-1)).toFixed(2)
+        let Tem = ((r_data[3]*256+r_data[2]) * 175 / (Math.pow(2,16)-1) - 45).toFixed(2)
+        let Hum = ((r_data[1]*256+r_data[0]) * 100 / (Math.pow(2,16)-1)).toFixed(2)
         this.setData({
           Tem_num: `${Tem}℃`,
           Hum_num: `${Hum}%`,
@@ -272,6 +340,10 @@ Page({
     let dataView = new DataView(buffer)
 
     if (eventId == "getvolt"){//获取设备当前电压
+      let time = util.formatHMdata(new Date());
+      this.setData({
+        getvolt_time: time
+      })
       dataView.setUint8(0,0xff)
       dataView.setUint8(1,0)
       dataView.setUint8(2,0)
@@ -281,7 +353,7 @@ Page({
         deviceId: this.data.device_connected.deviceid,
         serviceId: this.data.serviceId,
         characteristicId:this.data.Write_characteristicId,
-        value:voltbuffer,
+        value:buffer,
         success:(res) => {
           console.log("写入：",buffer)
         },
@@ -291,6 +363,10 @@ Page({
       })
     }
     if (eventId == "getdata"){//获取当前温湿度值
+      let time = util.formatHMdata(new Date());
+      this.setData({
+        getdata_time: time
+      })
       dataView.setUint8(0,0xff)
       dataView.setUint8(1,0xff)
       dataView.setUint8(2,0)
@@ -300,7 +376,7 @@ Page({
         deviceId: this.data.device_connected.deviceid,
         serviceId: this.data.serviceId,
         characteristicId:this.data.Write_characteristicId,
-        value:voltbuffer,
+        value:buffer,
         success:(res) => {
           console.log("写入：",buffer)
         },
@@ -310,6 +386,35 @@ Page({
     })
     }
     if (eventId == "setdata"){//确认参数开始测试
+      let time = util.formatHMdata(new Date());
+      this.setData({
+        setdata_time: time,
+        Tem_num: "获取中",
+        Hum_num: "获取中",
+        setdata_btn_disabled: true,
+        wait_time: this.data.objectduration_array[this.data.duration_index].duration,
+      })
+
+      //简单的倒计时显示还有多久能够获取数据
+      // console.log("wait_time:",this.data.wait_time)
+      let seconds = this.data.objectduration_array[this.data.duration_index].duration
+      // console.log('测试时长：',this.data.objectduration_array[this.data.duration_index].duration)
+      let setdata_intercal = setInterval(() => {
+        seconds--
+        if (seconds <= 0){
+          this.setData({
+            setdata_btn_disabled: false,
+          })
+          clearInterval(setdata_intercal)
+        } else {
+          this.setData({
+            wait_time: seconds,
+          })
+          // console.log("wait_time:",that.data.wait_time)
+        }
+      }, 1000);
+      
+
       dataView.setUint8(0,this.data.objectduration_array[this.data.duration_index].id)
       dataView.setUint8(1,this.data.objectfrequency_array[this.data.frequency_index].id)
       dataView.setUint8(2,this.data.objectprecision_array[this.data.precision_index].id)
@@ -319,7 +424,7 @@ Page({
         deviceId: this.data.device_connected.deviceid,
         serviceId: this.data.serviceId,
         characteristicId:this.data.Write_characteristicId,
-        value:voltbuffer,
+        value:buffer,
         success:(res) => {
           console.log("写入：",buffer)
         },
