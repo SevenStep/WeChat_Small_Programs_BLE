@@ -111,19 +111,19 @@ Page({
     this.vibrateShort()
     let id_str = event.target.id  //点击了按钮1或者按钮2 
     let url = "../" + id_str+'/'+id_str //得到页面url 
-    if((id_str == 'page_information') && (this.data.connected == false)) {
-      wx.showModal({
-        title: "注意",
-        content: '请连接相应设备后查看',
-        showCancel: false,
-        success: function (res) {
-          if (res.confirm) {//这里是点击了确定以后
-            console.log('确定')
-          } 
-        }
-      })
-      return
-    }
+    // if((id_str == 'page_information') && (this.data.connected == false)) {
+    //   wx.showModal({
+    //     title: "注意",
+    //     content: '请连接相应设备后查看',
+    //     showCancel: false,
+    //     success: function (res) {
+    //       if (res.confirm) {//这里是点击了确定以后
+    //         console.log('确定')
+    //       } 
+    //     }
+    //   })
+    //   return
+    // }
     wx.navigateTo({
       url: url,
       success: (res)=> {
@@ -199,7 +199,7 @@ Page({
     wx.onBluetoothDeviceFound((res) => {
       console.log("开始监听寻找新设备")
       res.devices.forEach(device => {
-        var that = this
+        let that = this
         console.log("当前设备清单：",that.data.devices)
         //检测设备名称，没名字的不显示
         if (!device.name && !device.localName) {
@@ -215,28 +215,6 @@ Page({
           devices: devices_list
         })
       })
-    })
-  },
-
-  /**
-   * 获取蓝牙设备所有服务(service)
-   * @param {*} deviceId 
-   */
-  getBLEDeviceServices(deviceId){
-    wx.getBLEDeviceServices({
-      deviceId,
-      success: (res) => {
-        console.log("services:",res.services)//serviceID  蓝牙服务的uuid  
-        console.log('advertisServiceUUIDs:',this.data.device_connected.advertisserviceuuids[0])
-        //查找主服务uuid并确认连接
-        let uuid_index = res.services.findIndex(a => a.uuid == this.data.device_connected.advertisserviceuuids[0])
-        if (uuid_index != -1){
-          console.log("已找到主服务uuid，确认连接")
-          this.getBLEDeviceCharacteristics(deviceId, res.services[uuid_index].uuid)
-          return
-        }
-        
-      },
     })
   },
 
@@ -294,16 +272,13 @@ Page({
         this.setData({
           connected: true,
           device_connected: device_data,
-          Tem_num: "获取中",
-          Hum_num: "获取中",
         })
         console.log("name:",device_data.name)
         console.log("deviceId:",deviceId);
-        this.getBLEDeviceServices(deviceId);
 
         //监听低功耗蓝牙连接状态的改变事件。包括开发者主动连接或断开连接，设备丢失，连接异常断开等等
         wx.onBLEConnectionStateChange((res) => {
-          var that = this
+          let that = this
           if(res.connected == false) {
             /**
              * 安卓系统【微信小程序】wx.onBluetoothDeviceFound 安卓机第一次可以连接蓝牙设备，第二次搜索不到问题

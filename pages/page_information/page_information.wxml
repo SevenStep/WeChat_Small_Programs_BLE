@@ -47,7 +47,7 @@
     </view>
 
     <view class="setdata">
-      <button class="btn-setdata" hover-class="btn-setdata-hover" bindtap="">
+      <button class="btn-setdata" hover-class="btn-setdata-hover" id="setdata" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-setdata" space="ture" decode="ture">确认参数开始测试</text>
 
       </button>
@@ -58,13 +58,13 @@
     </view>
 
     <view class="getdata">
-      <button class="btn-getdata" hover-class="btn-getdata-hover"  bindtap="">
+      <button class="btn-getdata" hover-class="btn-getdata-hover" id="getdata" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-getdata" space="ture" decode="ture">获取当前温湿度值</text>
       </button>
     </view>
 
     <view class="getvolt">
-      <button class="btn-getvolt" hover-class="btn-getvolt-hover"  bindtap="">
+      <button class="btn-getvolt" hover-class="btn-getvolt-hover" id="getvolt" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-getvolt" space="ture" decode="ture">获取当前设备电压</text>
       </button>
     </view>
