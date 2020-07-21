@@ -50,7 +50,7 @@
       <button wx:if="{{setdata_btn_disabled == false}}" class="btn-setdata" hover-class="btn-setdata-hover" id="setdata" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-setdata" space="ture" decode="ture">确认参数开始测试</text>
       </button>
-      <view wx:if="{{setdata_btn_disabled != false}}" class="btn-setdata-wait" disabled="!{{setdata_btn_disabled}}">
+      <view wx:if="{{setdata_btn_disabled != false}}" class="btn-setdata-wait" >
         <text class="text-setdata" space="ture" decode="ture">{{wait_time}}秒后获得数据</text>
       </view>
     </view>
@@ -65,9 +65,12 @@
     </view>
 
     <view class="getdata">
-      <button class="btn-getdata" hover-class="btn-getdata-hover" id="getdata" bindtap="setBLEDeviceCharacteristicsValue">
+      <button wx:if="{{setdata_btn_disabled == false}}" class="btn-getdata" hover-class="btn-getdata-hover" id="getdata" bindtap="setBLEDeviceCharacteristicsValue">
         <text class="text-getdata" space="ture" decode="ture">获取当前温湿度值</text>
       </button>
+      <view wx:if="{{setdata_btn_disabled != false}}" class="btn-getdata" >
+        <text class="text-getdata" space="ture" decode="ture">获取当前温湿度值</text>
+      </view>
     </view>
 
     <view class="getdata-time">
