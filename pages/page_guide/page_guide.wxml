@@ -2,6 +2,10 @@
 <view class="container">
   <view class="page-body">
 
+    <view class="guide-rich-text">
+      <rich-text nodes="{{htmlSnip}}"></rich-text>
+    </view>
+
     <view class="version">
       <button class="btn-version" hover-class="none" bindtap="onChangeShowState">
         <text class="text-version" space="ture" decode="ture">SMSA@NUAA&nbsp;{{version_number}}</text>
