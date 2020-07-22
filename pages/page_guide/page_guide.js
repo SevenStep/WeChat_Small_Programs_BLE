@@ -5,7 +5,6 @@ const htmlSnip =
 <h1 style="text-align:center">使用帮助</h1>
 <br />
 <h2>✅ 基本使用说明</h2>
-<br />
 <p style="text-indent:2em">本程序用于低功耗无线传感器节点的演示使用，可通过相对应的无线传感器节点获取温湿度值以及无线传感器设备输入电压。通过参数设置，可以获取一段时间内的温湿度平均数据。</p>
 <h3>参数设置</h3>
 <p style="text-indent:2em">通过设置参数，可以获取采样时间内的平均温湿度数据。本程序参数设置分为：</p>
@@ -16,8 +15,7 @@ const htmlSnip =
 </ul>
 <p style="text-indent:2em"><b>注意：</b>在进行参数设置采样时。不能进行实时温湿度数据的获取。</p>
 <br />
-<h2>🈯 疑难解答</h2>
-<br />
+<h2>✅ 疑难解答</h2>
 <p style="text-indent:2em">本程序仍处于测试阶段，在Android系统兼容性上具有一定的问题，Android设备用户可能会存在搜索设备较慢的问题。部分BUG请联系开发人员，感谢您的理解与配合🙏</p>
 </div>
 `

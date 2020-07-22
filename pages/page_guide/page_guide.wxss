@@ -17,9 +17,10 @@
   top:5%;
   height: 85%;
   width: 85%;
+  font-size: 26rpx;
   display: flex;
   flex-direction:row;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center; 
 }
 
